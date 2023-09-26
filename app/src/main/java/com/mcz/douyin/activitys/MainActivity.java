@@ -27,11 +27,13 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.mcz.douyin.R;
 import com.mcz.douyin.config.GlobalVariableHolder;
 import com.mcz.douyin.config.WindowPermissionCheck;
 import com.mcz.douyin.script.TaskDemo;
 import com.mcz.douyin.service.MyService;
+import com.mcz.douyin.ui.FunctionActivity;
 import com.mcz.douyin.utils.TxTManager;
 import com.cmcy.rxpermissions2.RxPermissions;
 
@@ -46,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         printLogMsg("onCreate() is run");
-
-        GlobalVariableHolder.context = this.getApplicationContext();
 
         // 存储权限
         storagePermissions();
@@ -71,42 +71,8 @@ public class MainActivity extends AppCompatActivity {
         initDisplay();
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            boolean permission = WindowPermissionCheck.checkPermission(this);
-            if (permission) {
-                printLogMsg("onCreate: permission true => " + permission);
-                // 打开悬浮窗
-                startService(new Intent(GlobalVariableHolder.context, FloatingButton.class));
-                // 打开悬浮窗
-                startService(new Intent(GlobalVariableHolder.context, FloatingWindow.class));
-            }
-        }
-
-    }
 
     // 任务开始入口
-    private void start_run_dy() {
-        new Thread(new Runnable() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void run() {
-                try {
-//
-//                    DyTaskService dyTaskService = new DyTaskService();
-//                    dyTaskService.main();
-
-                    TaskDemo demo = new TaskDemo();
-                    demo.start_run();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
 
 
     @Override
@@ -131,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         //3、准备数据
         String[] data = {
                 //"版本号 => 2.1.6",
-                "测试", "开启无障碍",
+                "开始测试", "开启无障碍",
                 //"ANDROID_ID: " + Variable.ANDROID_ID,
                 //"PHONE_NAME: " + Variable.PHONE_NAME,
                 //"load fix patch",
@@ -157,6 +123,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void switchResult(String result, View view) {
+        boolean permission = WindowPermissionCheck.checkPermission(this);
+        if (permission) {
+            printLogMsg("onCreate: permission true => " + permission);
+            // 打开悬浮窗
+            startService(new Intent(GlobalVariableHolder.context, FloatingButton.class));
+            // 打开悬浮窗
+            startService(new Intent(GlobalVariableHolder.context, FloatingWindow.class));
+        }
         // 跳转无障碍页面
         if (result.equals("跳转到设置无障碍页面")) {
             startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
@@ -164,19 +138,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
-        // 仅用于学习交流，切勿用于非法途径
-        if (result.equals("仅用于学习交流，切勿用于非法途径，否则与作者无关")) {
-            return;
-        }
-
-        // 代码开源 GitHub 搜索 小孟自动化
-        if (result.equals("代码开源 GitHub 搜索 小孟自动化")) {
-            return;
-        }
-
         //判断无障碍是否开启
         if (!isAccessibilityServiceOn()) {
+            ToastUtils.showShort("请开启无障碍模式");
             startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
         } else {
             // 初始化
@@ -188,10 +152,11 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("msg", "show_max");
                 context.sendBroadcast(intent);
             }
-
-            if (result.equals("测试")) {
-                start_run_dy();
+            if (result.equals("开始测试")) {
+                startActivity(new Intent(MainActivity.this, FunctionActivity.class));
+                return;
             }
+
 
         }
     }
@@ -267,7 +232,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/FATJS_DIR/patch_signed_7zip.apk";
-
 
 
     // 广播

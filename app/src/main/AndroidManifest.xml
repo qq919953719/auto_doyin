@@ -72,6 +72,10 @@
             android:exported="false"
             android:label="@string/title_activity_login"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.FunctionActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
 
         <!-- 配置悬浮窗 -->
         <service android:name="com.mcz.douyin.activitys.FloatingWindow" />
