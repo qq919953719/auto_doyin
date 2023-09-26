@@ -34,7 +34,6 @@ import com.mcz.douyin.script.TaskDemo;
 import com.mcz.douyin.service.MyService;
 import com.mcz.douyin.utils.TxTManager;
 import com.cmcy.rxpermissions2.RxPermissions;
-import com.tencent.tinker.lib.tinker.TinkerInstaller;
 
 import java.io.File;
 
@@ -164,12 +163,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        // 加载要修复的包
-        if (result.equals("load fix patch")) {
-            // loadBtn = (TextView)view;
-            loadPatch();
-            return;
-        }
+
 
         // 仅用于学习交流，切勿用于非法途径
         if (result.equals("仅用于学习交流，切勿用于非法途径，否则与作者无关")) {
@@ -274,27 +268,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/FATJS_DIR/patch_signed_7zip.apk";
 
-    /**
-     * 加载热补丁插件
-     */
-    public void loadPatch() {
-        // 查看 sdcard/FATJS_DIR 目录下是否有 patch 包
-        patch_signed_7zip = new File(Environment.getExternalStorageDirectory() + "/FATJS_DIR/patch_signed_7zip.apk");
-        if (patch_signed_7zip.exists()) {
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    // load patch 包
-                    TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), path);
-                }
-            }).start();
-
-        } else {
-            printLogMsg("loadPatch: no patch_signed_7zip");
-            Toast.makeText(GlobalVariableHolder.context, "no patch_signed_7zip", Toast.LENGTH_LONG).show();
-        }
-    }
 
     // 广播
     DataReceiver dataReceiver = null;

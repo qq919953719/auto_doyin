@@ -7,7 +7,8 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
 
-import zhepan.com.mytest.R;
+import com.mcz.douyin.R;
+
 
 public class CountDownTimerUtils extends CountDownTimer {
 
