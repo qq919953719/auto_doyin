@@ -54,6 +54,7 @@
             android:enabled="true"
             android:exported="true" />
 
+
         <activity
             android:name="com.mcz.douyin.activitys.MainActivity"
             android:launchMode="singleTop"></activity>
