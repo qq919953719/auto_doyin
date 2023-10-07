@@ -97,11 +97,11 @@ public class MainActivity extends AppCompatActivity {
         //3、准备数据
         String[] data = {
                 //"版本号 => 2.1.6",
-                "开始测试", "开启无障碍",
+                "开始运行", "开启无障碍",
                 //"ANDROID_ID: " + Variable.ANDROID_ID,
                 //"PHONE_NAME: " + Variable.PHONE_NAME,
                 //"load fix patch",
-                "跳转到设置无障碍页面", "代码开源 GitHub 搜索 小孟自动化", "仅用于学习交流，切勿用于非法途径，否则与作者无关",};
+                "跳转到设置无障碍页面",};
         //4、创建适配器 连接数据源和控件的桥梁
         //参数 1：当前的上下文环境
         //参数 2：当前列表项所加载的布局文件
@@ -137,6 +137,11 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        if (result.equals("开启无障碍")) {
+            startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+            return;
+        }
+
 
         //判断无障碍是否开启
         if (!isAccessibilityServiceOn()) {
@@ -152,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("msg", "show_max");
                 context.sendBroadcast(intent);
             }
-            if (result.equals("开始测试")) {
+            if (result.equals("开始运行")) {
                 startActivity(new Intent(MainActivity.this, FunctionActivity.class));
                 return;
             }

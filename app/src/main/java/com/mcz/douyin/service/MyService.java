@@ -15,6 +15,7 @@ import com.mcz.douyin.config.GlobalVariableHolder;
 
 public class MyService extends Service {
     private static final String TAG = GlobalVariableHolder.tag;
+
     public MyService() {
     }
 
@@ -34,16 +35,18 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // 提高进程优先级
-        Log.e(TAG,"onStartCommand");
-        intent.putExtra("main","hello ");
+        Log.e(TAG, "onStartCommand");
+        if (intent == null) {
+            return START_STICKY;
+        }
+        intent.putExtra("main", "hello ");
 
         //---------------------------------------------
         String CHANNEL_ONE_ID = "com.primedu.cn";
         String CHANNEL_ONE_NAME = "Channel One";
         NotificationChannel notificationChannel = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationChannel = new NotificationChannel(CHANNEL_ONE_ID,
-                    CHANNEL_ONE_NAME, NotificationManager.IMPORTANCE_HIGH);
+            notificationChannel = new NotificationChannel(CHANNEL_ONE_ID, CHANNEL_ONE_NAME, NotificationManager.IMPORTANCE_HIGH);
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.RED);
             notificationChannel.setShowBadge(true);
@@ -56,13 +59,9 @@ public class MyService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         Notification notification = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            notification = new Notification.Builder(this).setChannelId(CHANNEL_ONE_ID)
-                    .setTicker("Nature")
+            notification = new Notification.Builder(this).setChannelId(CHANNEL_ONE_ID).setTicker("Nature")
                     //.setSmallIcon(R.drawable.application1)
-                    .setContentTitle("FATJS_DIR")
-                    .setContentIntent(pendingIntent)
-                    .setActions()
-                    .getNotification();
+                    .setContentTitle("FATJS_DIR").setContentIntent(pendingIntent).setActions().getNotification();
             notification.flags |= Notification.FLAG_NO_CLEAR;
             startForeground(1, notification);
         }

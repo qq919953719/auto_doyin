@@ -157,6 +157,6 @@ public class FloatingButton extends Service {
     private void testMethod() {
         // 将测试的动作写到这里，点击悬浮窗的 打开 按钮，就可以执行
         TaskDemo taskDemo = new TaskDemo();
-        taskDemo.start_run();
+//        taskDemo.start_run();
     }
 }

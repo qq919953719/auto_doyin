@@ -35,7 +35,8 @@ public class AccUtils extends AccessibilityService {
     }
 
     @Override
-    public void onAccessibilityEvent(AccessibilityEvent accessibilityEvent) {}
+    public void onAccessibilityEvent(AccessibilityEvent accessibilityEvent) {
+    }
 
     // 返回的节点
     private volatile static AccessibilityNodeInfo nodeInfoOut;
@@ -48,15 +49,15 @@ public class AccUtils extends AccessibilityService {
     }
 
     /**
-     ************************************************工具方法*********************************************
+     * ***********************************************工具方法*********************************************
      */
     // 从字符串中提取第一个整数
-    public static int extractFirstIntFromString(String str){
+    public static int extractFirstIntFromString(String str) {
         Pattern p = Pattern.compile("\\d+");
         Matcher m = p.matcher(str);
 
         int i = -1;
-        if (m.find()){
+        if (m.find()) {
             i = Integer.parseInt(m.group());
             AccUtils.printLogMsg("提取到的第一个整数是：" + i);
         } else {
@@ -85,12 +86,18 @@ public class AccUtils extends AccessibilityService {
             timeSleep(waitOneSecond);
             uiSelector.text("以后再说").findOne().click();
             timeSleep(waitOneSecond);
-            swipe((int)(mWidth / 2) , mHeight - 480, (int)(mWidth / 2) + 80, 200, 450);
+            uiSelector.className("android.widget.ImageView").desc("关闭").findOne().click();
+            timeSleep(waitOneSecond);
+            swipe((int) (mWidth / 2), mHeight - 480, (int) (mWidth / 2) + 80, 200, 450);
             timeSleep(waitFiveSecond + new Random().nextInt(waitFiveSecond));
         }
     }
+
+
+
+
     /**
-     ************************************************工具方法*********************************************
+     * ***********************************************工具方法*********************************************
      */
 
     // 移动悬浮窗
@@ -117,13 +124,14 @@ public class AccUtils extends AccessibilityService {
                     break;
             }
             context.sendBroadcast(intent);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     // 日志打印
     public static void printLogMsg(String msg) {
+        Log.i("douyin", msg);
         Intent intent = new Intent();
         intent.setAction("com.msg");
         intent.putExtra("msg", msg);
@@ -136,9 +144,11 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * getRootInActiveWindow
+     *
      * @return
      */
     static AccessibilityNodeInfo root;
+
     public static AccessibilityNodeInfo getRootInActiveMy() {
         for (int i = 0; i < 5; i++) {
             root = AccessibilityHelper.getRootInActiveWindow();
@@ -147,7 +157,7 @@ public class AccUtils extends AccessibilityService {
             }
             timeSleep(500);
         }
-        printLogMsg( "Exception: do not find window");
+        printLogMsg("Exception: do not find window");
         return root;
     }
 
@@ -156,7 +166,7 @@ public class AccUtils extends AccessibilityService {
         // 立即锁屏
         try {
             return AccessibilityHelper.performGlobalAction(AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -166,7 +176,7 @@ public class AccUtils extends AccessibilityService {
         try {
             AccessibilityHelper.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
             return true;
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -176,7 +186,7 @@ public class AccUtils extends AccessibilityService {
         try {
             AccessibilityHelper.performGlobalAction(AccessibilityService.GLOBAL_ACTION_HOME);
             return true;
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -184,6 +194,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 获取坐标
+     *
      * @param nodeInfo
      * @return
      */
@@ -205,13 +216,12 @@ public class AccUtils extends AccessibilityService {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public static void scrollUp() {
-        swipe((int)(mWidth / 2) + new Random().nextInt(100), mHeight - 420 + new Random().nextInt(100),
-            (int)(mWidth / 2) + new Random().nextInt(200), 310 - new Random().nextInt(100),
-                350 + new Random().nextInt(100));
+        swipe((int) (mWidth / 2) + new Random().nextInt(100), mHeight - 420 + new Random().nextInt(100), (int) (mWidth / 2) + new Random().nextInt(200), 310 - new Random().nextInt(100), 350 + new Random().nextInt(100));
     }
 
     /**
      * 手势滑动
+     *
      * @param x1
      * @param y1
      * @param x2
@@ -219,28 +229,27 @@ public class AccUtils extends AccessibilityService {
      * @param duration
      */
     @RequiresApi(24)
-    public static Boolean swipe(float x1,float y1,float x2,float y2,long duration) {
+    public static Boolean swipe(float x1, float y1, float x2, float y2, long duration) {
         try {
-            Path path=new Path();
-            path.moveTo(x1 + new Random().nextInt(10) - 5,y1 + new Random().nextInt(10) - 5);
-            path.lineTo(x2 + new Random().nextInt(10) - 5,y2 + new Random().nextInt(10) - 5);
-            GestureDescription.Builder builder=new GestureDescription.Builder();
-            GestureDescription gestureDescription=builder
-                    .addStroke(new GestureDescription.StrokeDescription(path,0,duration))
-                    .build();
-            return AccessibilityHelper.dispatchGesture(gestureDescription,new GestureResultCallback() {
+            Path path = new Path();
+            path.moveTo(x1 + new Random().nextInt(10) - 5, y1 + new Random().nextInt(10) - 5);
+            path.lineTo(x2 + new Random().nextInt(10) - 5, y2 + new Random().nextInt(10) - 5);
+            GestureDescription.Builder builder = new GestureDescription.Builder();
+            GestureDescription gestureDescription = builder.addStroke(new GestureDescription.StrokeDescription(path, 0, duration)).build();
+            return AccessibilityHelper.dispatchGesture(gestureDescription, new GestureResultCallback() {
                 @Override
                 public void onCompleted(GestureDescription gestureDescription1) {
                     super.onCompleted(gestureDescription1);
-                    Log.e(TAG,"滑动结束..."+ gestureDescription1.getStrokeCount());
+                    Log.e(TAG, "滑动结束..." + gestureDescription1.getStrokeCount());
                 }
+
                 @Override
                 public void onCancelled(GestureDescription gestureDescription1) {
                     super.onCancelled(gestureDescription1);
-                    Log.e(TAG,"滑动取消");
+                    Log.e(TAG, "滑动取消");
                 }
-            },null);
-        }catch (Exception e) {
+            }, null);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -253,13 +262,15 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 点击坐标
+     *
      * @param x1
      * @param y1
      * @param duration
      */
     @RequiresApi(24)
     public static boolean clickPoint(float x1, float y1, long duration) {
-        Path path=new Path();
+        timeSleep(waitFourSecond);
+        Path path = new Path();
         x1 = x1 + new Random().nextInt(9) - 4;
         y1 = y1 + new Random().nextInt(9) - 4;
         printLogMsg("[x => " + x1 + ", y => " + y1 + "]");
@@ -270,23 +281,22 @@ public class AccUtils extends AccessibilityService {
             return false;
         }
         path.moveTo(x1, y1);
-        GestureDescription.Builder builder=new GestureDescription.Builder();
-        GestureDescription gestureDescription=builder
-                .addStroke(new GestureDescription.StrokeDescription(path,0,duration))
-                .build();
+        GestureDescription.Builder builder = new GestureDescription.Builder();
+        GestureDescription gestureDescription = builder.addStroke(new GestureDescription.StrokeDescription(path, 0, duration)).build();
 
-        return AccessibilityHelper.dispatchGesture(gestureDescription,new GestureResultCallback() {
+        return AccessibilityHelper.dispatchGesture(gestureDescription, new GestureResultCallback() {
             @Override
             public void onCompleted(GestureDescription gestureDescription1) {
                 super.onCompleted(gestureDescription1);
-                Log.e(TAG,"点击结束..."+ gestureDescription1.getStrokeCount());
+                Log.e(TAG, "点击结束..." + gestureDescription1.getStrokeCount());
             }
+
             @Override
             public void onCancelled(GestureDescription gestureDescription1) {
                 super.onCancelled(gestureDescription1);
-                Log.e(TAG,"点击取消");
+                Log.e(TAG, "点击取消");
             }
-        },null);
+        }, null);
     }
 
     /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
@@ -317,6 +327,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 刷新当前 Activity()
+     *
      * @param accessibilityEvent
      */
     protected void refreshCurrentActivity(AccessibilityEvent accessibilityEvent) {
@@ -327,23 +338,22 @@ public class AccUtils extends AccessibilityService {
             if (accessibilityEvent.getEventType() == accessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
 
                 //获取当前窗口activity名
-                ComponentName componentName = new ComponentName(
-                        accessibilityEvent.getPackageName().toString(),
-                        accessibilityEvent.getClassName().toString()
-                );
+                ComponentName componentName = new ComponentName(accessibilityEvent.getPackageName().toString(), accessibilityEvent.getClassName().toString());
 
                 try {
                     String activityName = getPackageManager().getActivityInfo(componentName, 0).toString();
                     activityName = activityName.substring(activityName.indexOf(" "), activityName.indexOf("}"));
                     currentActivityName = activityName.trim();
                     //Log.i(TAG, " => " + currentActivityName);
-                } catch (PackageManager.NameNotFoundException e) {}
+                } catch (PackageManager.NameNotFoundException e) {
+                }
             }
         }
     }
 
     /**
      * 返回一个文字列表，包含root下所有文字内容
+     *
      * @param root
      * @return
      */
@@ -352,22 +362,24 @@ public class AccUtils extends AccessibilityService {
             textList = new ArrayList<>();
             recursionFindAllText(root);
             return textList;
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     public static List<String> findAllText() {
         try {
             textList = new ArrayList<>();
             AccessibilityNodeInfo root = getRootInActiveMy();
             recursionFindAllText(root);
             return textList;
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     // 递归找元素
     private static void recursionFindAllText(AccessibilityNodeInfo root) {
         String text_tmp = String.valueOf(root.getText());
@@ -385,6 +397,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 返回一个文字列表，包含root下所有id内容
+     *
      * @param root
      * @return
      */
@@ -393,22 +406,24 @@ public class AccUtils extends AccessibilityService {
             textList = new ArrayList<>();
             recursionFindAllIds(root);
             return textList;
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     public static List<String> findAllIds() {
         try {
             textList = new ArrayList<>();
             AccessibilityNodeInfo root = getRootInActiveMy();
             recursionFindAllIds(root);
             return textList;
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     // 递归找元素
     private static void recursionFindAllIds(AccessibilityNodeInfo root) {
         String id_tmp = String.valueOf(root.getViewIdResourceName());
@@ -422,6 +437,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 返回一个文字列表，包含root下所有className内容
+     *
      * @param root
      * @return
      */
@@ -430,22 +446,24 @@ public class AccUtils extends AccessibilityService {
             textList = new ArrayList<>();
             recursionFindAllClassName(root);
             return textList;
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     public static List<String> findAllClassName() {
         try {
             textList = new ArrayList<>();
             AccessibilityNodeInfo root = getRootInActiveMy();
             recursionFindAllClassName(root);
             return textList;
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     // 递归找元素
     private static void recursionFindAllClassName(AccessibilityNodeInfo root) {
         String classname_tmp = String.valueOf(root.getClassName());
@@ -459,6 +477,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 根据text 查找元素 原生方法
+     *
      * @param str_param
      * @return
      */
@@ -473,6 +492,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 看看text为xxx的第一个元素并且可点击
+     *
      * @param root
      * @param str_param
      * @return
@@ -480,20 +500,22 @@ public class AccUtils extends AccessibilityService {
     public static AccessibilityNodeInfo findElementTextCanClick(AccessibilityNodeInfo root, String str_param) {
         try {
             recursionFindElementTextCanClick(root, str_param);
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             return nodeInfoOut;
         }
         return null;
     }
-    public static AccessibilityNodeInfo findElementTextCanClick( String str_param) {
+
+    public static AccessibilityNodeInfo findElementTextCanClick(String str_param) {
         try {
             AccessibilityNodeInfo root = getRootInActiveMy();
             recursionFindElementTextCanClick(root, str_param);
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             return nodeInfoOut;
         }
         return null;
     }
+
     // 递归找元素 包含某字符串
     private static void recursionFindElementTextCanClick(AccessibilityNodeInfo root, String str_param) {
         CharSequence rootText = root.getText();
@@ -511,6 +533,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 根据resourceId 查找元素
+     *
      * @param root
      * @param str_param
      * @return
@@ -518,20 +541,22 @@ public class AccUtils extends AccessibilityService {
     public static AccessibilityNodeInfo findElementById(AccessibilityNodeInfo root, String str_param) {
         try {
             recursionFindElementById(root, str_param);
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             return nodeInfoOut;
         }
         return null;
     }
+
     public static AccessibilityNodeInfo findElementById(String str_param) {
         try {
             AccessibilityNodeInfo root = getRootInActiveMy();
             recursionFindElementById(root, str_param);
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             return nodeInfoOut;
         }
         return null;
     }
+
     // 递归找元素
     private static void recursionFindElementById(AccessibilityNodeInfo root, String str_param) {
         String viewIdResourceName = root.getViewIdResourceName();
@@ -546,6 +571,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 根据resourceId 查找所有符合的元素  返回list node都是包含关系
+     *
      * @param root
      * @param str_param
      * @return
@@ -555,22 +581,24 @@ public class AccUtils extends AccessibilityService {
             nodeInfoOutList = new ArrayList<>();
             recursionFindElementListByContainId(root, str_param);
             return nodeInfoOutList;
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     public static List<AccessibilityNodeInfo> findElementListByContainId(String str_param) {
         try {
             nodeInfoOutList = new ArrayList<>();
             AccessibilityNodeInfo root = getRootInActiveMy();
             recursionFindElementListByContainId(root, str_param);
             return nodeInfoOutList;
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     // 递归找元素
     private static void recursionFindElementListByContainId(AccessibilityNodeInfo root, String str_param) {
         String viewIdResourceName = root.getViewIdResourceName();
@@ -584,6 +612,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 根据text 查找元素
+     *
      * @param root
      * @param str_param
      * @return
@@ -591,20 +620,22 @@ public class AccUtils extends AccessibilityService {
     public static AccessibilityNodeInfo findElementByText(AccessibilityNodeInfo root, String str_param) {
         try {
             recursionFindElementByText(root, str_param);
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             return nodeInfoOut;
         }
         return null;
     }
+
     public static AccessibilityNodeInfo findElementByText(String str_param) {
         try {
             AccessibilityNodeInfo root = getRootInActiveMy();
             recursionFindElementByText(root, str_param);
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             return nodeInfoOut;
         }
         return null;
     }
+
     // 递归找元素
     private static void recursionFindElementByText(AccessibilityNodeInfo root, String str_param) {
         CharSequence rootText = root.getText();
@@ -622,6 +653,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 根据className 查找所有符合的元素  返回list node都是包含关系
+     *
      * @param root
      * @param str_param
      * @return
@@ -631,22 +663,24 @@ public class AccUtils extends AccessibilityService {
             nodeInfoOutList = new ArrayList<>();
             recursionFindElementListByContainClassName(root, str_param);
             return nodeInfoOutList;
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     public static List<AccessibilityNodeInfo> findElementListByContainClassName(String str_param) {
         try {
             nodeInfoOutList = new ArrayList<>();
             AccessibilityNodeInfo root = getRootInActiveMy();
             recursionFindElementListByContainClassName(root, str_param);
             return nodeInfoOutList;
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     // 递归找元素
     private static void recursionFindElementListByContainClassName(AccessibilityNodeInfo root, String str_param) {
         String rootClassName = String.valueOf(root.getClassName());
@@ -660,6 +694,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 查看等于Description的第一个元素
+     *
      * @param root
      * @param str_param
      * @return
@@ -669,22 +704,24 @@ public class AccUtils extends AccessibilityService {
             nodeInfoOutList = new ArrayList<>();
             recursionFindElementListDescription(root, str_param);
             return nodeInfoOutList;
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     public static List<AccessibilityNodeInfo> findElementListDescription(String str_param) {
         try {
             nodeInfoOutList = new ArrayList<>();
             AccessibilityNodeInfo root = getRootInActiveMy();
             recursionFindElementListDescription(root, str_param);
             return nodeInfoOutList;
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     // 递归找元素 包含某字符串
     private static void recursionFindElementListDescription(AccessibilityNodeInfo root, String str_param) {
         CharSequence rootText = root.getContentDescription();
@@ -701,6 +738,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 查看等于Description的第一个元素
+     *
      * @param root
      * @param str_param
      * @return
@@ -708,20 +746,22 @@ public class AccUtils extends AccessibilityService {
     public static AccessibilityNodeInfo findElementByDescription(AccessibilityNodeInfo root, String str_param) {
         try {
             recursionFindElementByDescription(root, str_param);
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             return nodeInfoOut;
         }
         return null;
     }
+
     public static AccessibilityNodeInfo findElementByDescription(String str_param) {
         try {
             AccessibilityNodeInfo root = getRootInActiveMy();
             recursionFindElementByDescription(root, str_param);
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             return nodeInfoOut;
         }
         return null;
     }
+
     // 递归找元素 包含某字符串
     private static void recursionFindElementByDescription(AccessibilityNodeInfo root, String str_param) {
         String textStr = String.valueOf(root.getContentDescription());
@@ -736,6 +776,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 查看包含Description的第一个元素
+     *
      * @param root
      * @param str_param
      * @return
@@ -743,20 +784,22 @@ public class AccUtils extends AccessibilityService {
     public static AccessibilityNodeInfo findElementByContainDescription(AccessibilityNodeInfo root, String str_param) {
         try {
             recursionFindElementByContainDescription(root, str_param);
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             return nodeInfoOut;
         }
         return null;
     }
+
     public static AccessibilityNodeInfo findElementByContainDescription(String str_param) {
         try {
             AccessibilityNodeInfo root = getRootInActiveMy();
             recursionFindElementByContainDescription(root, str_param);
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             return nodeInfoOut;
         }
         return null;
     }
+
     // 递归找元素 包含某字符串
     private static void recursionFindElementByContainDescription(AccessibilityNodeInfo root, String str_param) {
         if (root != null) {
@@ -776,6 +819,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 根据Desc 查找所有符合的元素  返回list node都是包含关系
+     *
      * @param root
      * @param str_param
      * @return
@@ -785,22 +829,24 @@ public class AccUtils extends AccessibilityService {
             nodeInfoOutList = new ArrayList<>();
             recursionFindElementListByContainDescription(root, str_param);
             return nodeInfoOutList;
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     public static List<AccessibilityNodeInfo> findElementListByContainDescription(String str_param) {
         try {
             nodeInfoOutList = new ArrayList<>();
             AccessibilityNodeInfo root = getRootInActiveMy();
             recursionFindElementListByContainDescription(root, str_param);
             return nodeInfoOutList;
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     // 递归找元素
     private static void recursionFindElementListByContainDescription(AccessibilityNodeInfo root, String str_param) {
         String text = String.valueOf(root.getContentDescription());
@@ -814,6 +860,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 看看包含text的第一个元素
+     *
      * @param root
      * @param str_param
      * @return
@@ -821,20 +868,22 @@ public class AccUtils extends AccessibilityService {
     public static AccessibilityNodeInfo findElementByContainText(AccessibilityNodeInfo root, String str_param) {
         try {
             recursionFindElementByContainText(root, str_param);
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             return nodeInfoOut;
         }
         return null;
     }
+
     public static AccessibilityNodeInfo findElementByContainText(String str_param) {
         try {
             AccessibilityNodeInfo root = getRootInActiveMy();
             recursionFindElementByContainText(root, str_param);
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             return nodeInfoOut;
         }
         return null;
     }
+
     // 递归找元素 包含某字符串
     private static void recursionFindElementByContainText(AccessibilityNodeInfo root, String str_param) {
         String textStr = String.valueOf(root.getText());
@@ -849,6 +898,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 根据text 查找所有符合的元素  返回list node都是包含关系
+     *
      * @param root
      * @param str_param
      * @return
@@ -858,22 +908,24 @@ public class AccUtils extends AccessibilityService {
             nodeInfoOutList = new ArrayList<>();
             recursionFindElementListByContainText(root, str_param);
             return nodeInfoOutList;
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     public static List<AccessibilityNodeInfo> findElementListByContainText(String str_param) {
         try {
             nodeInfoOutList = new ArrayList<>();
             AccessibilityNodeInfo root = getRootInActiveMy();
             recursionFindElementListByContainText(root, str_param);
             return nodeInfoOutList;
-        }catch (StopMsgException e) {
+        } catch (StopMsgException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     // 递归找元素
     private static void recursionFindElementListByContainText(AccessibilityNodeInfo root, String str_param) {
         String text = String.valueOf(root.getText());
@@ -900,15 +952,16 @@ public class AccUtils extends AccessibilityService {
      */
     /**
      * 输入文本 指定元素上输入文本
+     *
      * @param str_param
      * @return
      */
-    public static Boolean inputTextByNode(AccessibilityNodeInfo nodeInfo ,String str_param) {
+    public static Boolean inputTextByNode(AccessibilityNodeInfo nodeInfo, String str_param) {
         timeSleep(500);
         if (nodeInfo != null) {
             // 搜索对应的名字
-            android.os.Bundle rg_ShuJuBao19 = new android.os.Bundle ();
-            rg_ShuJuBao19.putString ("ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE", str_param);
+            android.os.Bundle rg_ShuJuBao19 = new android.os.Bundle();
+            rg_ShuJuBao19.putString("ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE", str_param);
             nodeInfo.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, rg_ShuJuBao19);
             nodeInfo.recycle();
             timeSleep(500);
@@ -919,6 +972,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 获取坐标
+     *
      * @param nodeInfo
      * @return
      */
@@ -926,7 +980,7 @@ public class AccUtils extends AccessibilityService {
         if (nodeInfo != null) {
             Rect rect = new Rect();
             nodeInfo.getBoundsInScreen(rect);
-            int x=(rect.left+rect.right)/2;
+            int x = (rect.left + rect.right) / 2;
             int y = (rect.top + rect.bottom) / 2;
             List<Integer> list = new ArrayList<>();
             list.add(x);
@@ -940,6 +994,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 根据坐标点击
+     *
      * @param nodeInfo
      * @return
      */
@@ -956,7 +1011,7 @@ public class AccUtils extends AccessibilityService {
                 nodeInfo.recycle();
                 return aBoolean;
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -964,6 +1019,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 根据坐标点击加偏移量
+     *
      * @param nodeInfo
      * @return
      */
@@ -982,7 +1038,7 @@ public class AccUtils extends AccessibilityService {
                 nodeInfo.recycle();
                 return aBoolean;
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -990,6 +1046,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 点击父级能点击的节点
+     *
      * @param nodeInfo
      * @return
      */
@@ -1013,7 +1070,7 @@ public class AccUtils extends AccessibilityService {
                     return action;
                 }
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -1021,34 +1078,35 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 双击坐标
+     *
      * @param x1
      * @param y1
      * @param duration
      */
     @RequiresApi(24)
-    public static boolean doubleClickPoint(float x1,float y1,long duration){
-        Path path=new Path();
-        path.moveTo(x1,y1);
+    public static boolean doubleClickPoint(float x1, float y1, long duration) {
+        Path path = new Path();
+        path.moveTo(x1, y1);
         GestureDescription.Builder builder = new GestureDescription.Builder();
-        GestureDescription gestureDescription=builder
-                .addStroke(new GestureDescription.StrokeDescription(path,0,duration))
-                .addStroke(new GestureDescription.StrokeDescription(path, new Random().nextInt(60) + 220, duration)).build();
-        return AccessibilityHelper.dispatchGesture(gestureDescription,new GestureResultCallback() {
+        GestureDescription gestureDescription = builder.addStroke(new GestureDescription.StrokeDescription(path, 0, duration)).addStroke(new GestureDescription.StrokeDescription(path, new Random().nextInt(60) + 220, duration)).build();
+        return AccessibilityHelper.dispatchGesture(gestureDescription, new GestureResultCallback() {
             @Override
             public void onCompleted(GestureDescription gestureDescription) {
                 super.onCompleted(gestureDescription);
-                Log.e(TAG,"点击结束..."+gestureDescription.getStrokeCount());
+                Log.e(TAG, "点击结束..." + gestureDescription.getStrokeCount());
             }
+
             @Override
             public void onCancelled(GestureDescription gestureDescription) {
                 super.onCancelled(gestureDescription);
-                Log.e(TAG,"点击取消");
+                Log.e(TAG, "点击取消");
             }
-        },null);
+        }, null);
     }
 
     /**
      * 等待
+     *
      * @param time
      */
     public static void timeSleep(int time) {
@@ -1056,7 +1114,7 @@ public class AccUtils extends AccessibilityService {
             Thread.sleep(time + new Random().nextInt(waitOneSecond));
         } catch (InterruptedException e) {
             e.printStackTrace();
-            int i = 1/0;
+            int i = 1 / 0;
         }
     }
 
@@ -1064,14 +1122,14 @@ public class AccUtils extends AccessibilityService {
      * *******************************************基本操作**************************************************
      */
 
-    public static Boolean startApplication(Context ctx, String pkName){
-        PackageManager packageManager= ctx.getPackageManager();
+    public static Boolean startApplication(Context ctx, String pkName) {
+        PackageManager packageManager = ctx.getPackageManager();
         Intent resolveIntent = new Intent(Intent.ACTION_MAIN, null);
         resolveIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         resolveIntent.setPackage(pkName);
         List<ResolveInfo> apps = packageManager.queryIntentActivities(resolveIntent, 0);
         ResolveInfo ri = apps.iterator().next();
-        if (ri != null ) {
+        if (ri != null) {
             String packageName = ri.activityInfo.packageName;
             String className = ri.activityInfo.name;
             Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -1088,6 +1146,7 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 打开应用
+     *
      * @param appName
      * @return
      */
@@ -1100,58 +1159,54 @@ public class AccUtils extends AccessibilityService {
     }
 
     @RequiresApi(24)
-    public static boolean swipeFYS(float x1,float y1,float x2,float y2,long duration){
-        Path pathA=new Path();
-        Path pathB=new Path();
-        pathA.moveTo(x1,y1);
-        pathA.lineTo(x2,y2);
-        pathB.moveTo(x1,y1);
-        pathB.lineTo(x2,y2);
-        Log.e(TAG,"MyAccessibilityService 中缩放 zoom()方法滑动点,reset：（ "+x1+","+y1+"),("+x2+","+y2+"),（ "+x1+","+y1+"),("+x2+","+y2+"),"+"时长是:"+duration);
-        GestureDescription.Builder builder=new GestureDescription.Builder();
-        GestureDescription gestureDescription=builder
-                .addStroke(new GestureDescription.StrokeDescription(pathA,0,duration))
-                .addStroke(new GestureDescription.StrokeDescription(pathB,50,200))
-                .build();
-        return AccessibilityHelper.dispatchGesture(gestureDescription,new GestureResultCallback() {
+    public static boolean swipeFYS(float x1, float y1, float x2, float y2, long duration) {
+        Path pathA = new Path();
+        Path pathB = new Path();
+        pathA.moveTo(x1, y1);
+        pathA.lineTo(x2, y2);
+        pathB.moveTo(x1, y1);
+        pathB.lineTo(x2, y2);
+        Log.e(TAG, "MyAccessibilityService 中缩放 zoom()方法滑动点,reset：（ " + x1 + "," + y1 + "),(" + x2 + "," + y2 + "),（ " + x1 + "," + y1 + "),(" + x2 + "," + y2 + ")," + "时长是:" + duration);
+        GestureDescription.Builder builder = new GestureDescription.Builder();
+        GestureDescription gestureDescription = builder.addStroke(new GestureDescription.StrokeDescription(pathA, 0, duration)).addStroke(new GestureDescription.StrokeDescription(pathB, 50, 200)).build();
+        return AccessibilityHelper.dispatchGesture(gestureDescription, new GestureResultCallback() {
             @Override
             public void onCompleted(GestureDescription gestureDescription) {
                 super.onCompleted(gestureDescription);
-                Log.e(TAG,"缩放结束..."+gestureDescription.getStrokeCount());
+                Log.e(TAG, "缩放结束..." + gestureDescription.getStrokeCount());
             }
+
             @Override
             public void onCancelled(GestureDescription gestureDescription) {
                 super.onCancelled(gestureDescription);
-                Log.e(TAG,"缩放取消");
+                Log.e(TAG, "缩放取消");
             }
-        },null);
+        }, null);
     }
 
     @RequiresApi(24)
-    public static boolean zoom(float x1,float y1,float x2,float y2, float x3,float y3,float x4,float y4,long duration){
-        Path pathA=new Path();
-        Path pathB=new Path();
-        pathA.moveTo(x1,y1);
-        pathA.lineTo(x2,y2);
-        pathB.moveTo(x3,y3);
-        pathB.lineTo(x4,y4);
-        Log.e(TAG,"MyAccessibilityService 中缩放 zoom()方法滑动点,reset：（ "+x1+","+y1+"),("+x2+","+y2+"),（ "+x3+","+y3+"),("+x4+","+y4+"),"+"时长是:"+duration);
-        GestureDescription.Builder builder=new GestureDescription.Builder();
-        GestureDescription gestureDescription=builder
-                .addStroke(new GestureDescription.StrokeDescription(pathA,0,duration))
-                .addStroke(new GestureDescription.StrokeDescription(pathB,0,duration))
-                .build();
-        return AccessibilityHelper.dispatchGesture(gestureDescription,new GestureResultCallback() {
+    public static boolean zoom(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, long duration) {
+        Path pathA = new Path();
+        Path pathB = new Path();
+        pathA.moveTo(x1, y1);
+        pathA.lineTo(x2, y2);
+        pathB.moveTo(x3, y3);
+        pathB.lineTo(x4, y4);
+        Log.e(TAG, "MyAccessibilityService 中缩放 zoom()方法滑动点,reset：（ " + x1 + "," + y1 + "),(" + x2 + "," + y2 + "),（ " + x3 + "," + y3 + "),(" + x4 + "," + y4 + ")," + "时长是:" + duration);
+        GestureDescription.Builder builder = new GestureDescription.Builder();
+        GestureDescription gestureDescription = builder.addStroke(new GestureDescription.StrokeDescription(pathA, 0, duration)).addStroke(new GestureDescription.StrokeDescription(pathB, 0, duration)).build();
+        return AccessibilityHelper.dispatchGesture(gestureDescription, new GestureResultCallback() {
             @Override
             public void onCompleted(GestureDescription gestureDescription) {
                 super.onCompleted(gestureDescription);
-                Log.e(TAG,"缩放结束..."+gestureDescription.getStrokeCount());
+                Log.e(TAG, "缩放结束..." + gestureDescription.getStrokeCount());
             }
+
             @Override
             public void onCancelled(GestureDescription gestureDescription) {
                 super.onCancelled(gestureDescription);
-                Log.e(TAG,"缩放取消");
+                Log.e(TAG, "缩放取消");
             }
-        },null);
+        }, null);
     }
 }

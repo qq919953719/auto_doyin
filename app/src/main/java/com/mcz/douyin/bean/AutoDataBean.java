@@ -67,6 +67,17 @@ public class AutoDataBean {
         @JSONField(name = "comment")
         private String comment;
 
+        public int getProbability() {
+            return probability;
+        }
+
+        public void setProbability(int probability) {
+            this.probability = probability;
+        }
+
+        @JSONField(name = "probability")
+        private int probability;
+
         public int getId() {
             return id;
         }
