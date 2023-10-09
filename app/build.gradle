@@ -8,7 +8,7 @@ android {
         // applicationId "com.example.tinkertest"
         applicationId "com.mcz.douyin"
         minSdkVersion 19
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -22,6 +22,12 @@ android {
     }
 
     signingConfigs {
+        debug {
+            keyAlias 'key0'
+            keyPassword '111111'
+            storeFile file("${rootDir}/keystore.jks")
+            storePassword '111111'
+        }
         release {
             keyAlias 'key0'
             keyPassword '111111'
@@ -42,7 +48,7 @@ android {
             signingConfig signingConfigs.release
         }
     }
-    viewBinding{
+    viewBinding {
         enabled = true
     }
     compileOptions {

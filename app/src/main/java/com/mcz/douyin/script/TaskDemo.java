@@ -38,150 +38,174 @@ public class TaskDemo extends UiSelector {
     public void startAutoParenting(AutoDataBean bean) {
         this.autoDataBean = bean;
 
-//        for (AutoDataBean.DataDTO doyinBean : bean.getData()) {
-//            //私信
-//            jumpApp("com.ss.android.ugc.aweme");
-//            printLogMsg("抖音打开成功");
-//            timeSleep(waitSixSecond);
-//            while (true) {
-//                if (className("TextView").desc("首页，按钮").exists()) {
-//                    className("TextView").desc("首页，按钮").findOne().click();
-//                    printLogMsg("点击首页按钮成功");
-//                    break;
-//                }
-//                if (className("ImageView").desc("关闭").exists()) {
-//                    className("ImageView").desc("关闭").findOne().click();
-//                }
+        for (AutoDataBean.DataDTO doyinBean : bean.getData()) {
+            //私信
+            jumpApp("com.ss.android.ugc.aweme");
+            printLogMsg("抖音打开成功");
+            timeSleep(waitSixSecond);
+            while (true) {
+                if (className("TextView").desc("首页，按钮").exists()) {
+                    className("TextView").desc("首页，按钮").findOne().click();
+                    printLogMsg("点击首页按钮成功");
+                    break;
+                }
+                if (className("ImageView").desc("关闭").exists()) {
+                    className("ImageView").desc("关闭").findOne().click();
+                }
+            }
+            timeSleep(waitThreeSecond);
+            int randow = new Random().nextInt(3);
+            viewVideo(randow);
+
+            while (true) {
+                if (className("TextView").desc("搜索").exists()) {
+                    className("TextView").desc("搜索").findOne().click();
+                    printLogMsg("点击搜索按TextView钮成功");
+                    break;
+                }
+                if (className("Button").desc("搜索").exists()) {
+                    className("Button").desc("搜索").findOne().click();
+                    printLogMsg("点击搜索按钮Button成功");
+                    break;
+                }
+            }
+
+
+            timeSleep(waitTwoSecond);
+            className("android.widget.EditText").findOne().setText(doyinBean.getDyName());
+            printLogMsg("搜索抖音号：" + doyinBean.getDyName() + "成功");
+            timeSleep(waitTwoSecond);
+            click(291, 241);
+            printLogMsg("点击搜索结果第一个");
+            timeSleep(waitTwoSecond);
+            while (true) {
+                if (className("Button").text("用户").exists()) {
+                    className("Button").text("用户").findOne().click();
+                    printLogMsg("点击用户按钮成功");
+                    break;
+                }
+            }
+            printLogMsg("点击用户分类成功");
+            timeSleep(waitSixSecond);
+
+//            className("RecyclerView").find().filterOne(item -> true).click();
+//            className("RecyclerView").find().filterOne(item -> true).child(0).click();
+//            click(505, 380);
+
+
+//            List<AccessibilityNodeInfo> recyclerView = findElementListByContainClassName("androidx.recyclerview.widget.RecyclerView");
+//            if (recyclerView != null) {
+//                AccessibilityNodeInfo info = recyclerView.get(0);
+//                AccUtils.clickNodeByPoint(info);
 //            }
-//            timeSleep(waitThreeSecond);
-//            int randow = new Random().nextInt(3);
-//            viewVideo(randow);
-//
-//            while (true) {
-//                if (className("TextView").desc("搜索").exists()) {
-//                    className("TextView").desc("搜索").findOne().click();
-//                    printLogMsg("点击搜索按TextView钮成功");
-//                    break;
-//                }
-//                if (className("Button").desc("搜索").exists()) {
-//                    className("Button").desc("搜索").findOne().click();
-//                    printLogMsg("点击搜索按钮Button成功");
-//                    break;
-//                }
+
+
+            className("RecyclerView").find().filter(new UiCollection.FilterCondition<AccessibilityNodeInfo>() {
+                @Override
+                public boolean shouldKeep(AccessibilityNodeInfo item) {
+                    AccessibilityNodeInfo accessibilityNodeInfo = item.getChild(0);
+                    AccUtils.clickNodeByPoint(accessibilityNodeInfo);
+                    printLogMsg("点击搜索到的第一个用户头像成功");
+                    return false;
+                }
+            });
+
+            timeSleep(waitSixSecond);
+
+
+//            while (true){
+            if (className("TextView").text("关注").exists()) {
+//                className("TextView").text("关注").findOne().click();
+                id("qym").className("TextView").findOne().click();
+                printLogMsg("点击关注按钮成功");
+            }
 //            }
-//
-//
-//            timeSleep(waitTwoSecond);
-//            className("android.widget.EditText").findOne().setText(doyinBean.getDyName());
-//            printLogMsg("搜索抖音号：" + doyinBean.getDyName() + "成功");
-//            timeSleep(waitTwoSecond);
-//            click(291, 241);
-//            printLogMsg("点击搜索结果第一个");
-//            timeSleep(waitTwoSecond);
-//            while (true) {
-//                if (className("Button").text("用户").exists()) {
-//                    className("Button").text("用户").findOne().click();
-//                    printLogMsg("点击用户按钮成功");
-//                    break;
-//                }
-//            }
-//            printLogMsg("点击用户分类成功");
-//            timeSleep(waitSixSecond);
-//
-////            className("RecyclerView").find().filterOne(item -> true).click();
-////            className("RecyclerView").find().filterOne(item -> true).child(0).click();
-////            click(505, 380);
-//
-//
-////            List<AccessibilityNodeInfo> recyclerView = findElementListByContainClassName("androidx.recyclerview.widget.RecyclerView");
-////            if (recyclerView != null) {
-////                AccessibilityNodeInfo info = recyclerView.get(0);
-////                AccUtils.clickNodeByPoint(info);
-////            }
-//
-//
-//            className("RecyclerView").find().filter(new UiCollection.FilterCondition<AccessibilityNodeInfo>() {
-//                @Override
-//                public boolean shouldKeep(AccessibilityNodeInfo item) {
-//                    AccessibilityNodeInfo accessibilityNodeInfo = item.getChild(0);
-//                    AccUtils.clickNodeByPoint(accessibilityNodeInfo);
-//                    printLogMsg("点击搜索到的第一个用户头像成功");
-//                    return false;
-//                }
-//            });
-//
-//            timeSleep(waitSixSecond);
-//
-//
-////            while (true){
-//            if (className("TextView").text("关注").exists()) {
-////                className("TextView").text("关注").findOne().click();
-//                id("qym").className("TextView").findOne().click();
-//                printLogMsg("点击关注按钮成功");
-//            }
-////            }
-//
-//
-//            timeSleep(waitSixSecond);
-//            while (true) {
-//                if (className("TextView").desc("私信").exists()) {
-//                    className("TextView").desc("私信").findOne().click();
-//                    printLogMsg("点击私信按钮成功");
-//                    break;
-//                }
-//                timeSleep(waitTwoSecond);
-//            }
-//            timeSleep(waitTwoSecond);
-//
-//
-//            if (className("ImageView").desc("会话").exists()) {
-//                className("ImageView").desc("会话").findOne().click();
-//                printLogMsg("点击会话按钮成功");
-//            }
-//            timeSleep(waitTwoSecond);
-//            click(395, 1810);
-//            printLogMsg("点击评论按钮成功");
-//            timeSleep(waitTwoSecond);
-//
-//            className("android.widget.EditText").findOne().setText(doyinBean.getComment());
-//            printLogMsg("输入私信内容成功");
-//            timeSleep(waitTwoSecond);
-//
-//            while (true) {
-//                if (className("ImageView").desc("发送").exists()) {
-//                    className("ImageView").desc("发送").findOne().click();
-//                    printLogMsg("点击发送按钮成功");
-//                    break;
-//                }
-//            }
-//            timeSleep(waitTwoSecond);
-//
-//
-//            for (int i = 0; i < 5; i++) {
-//                if (className("LinearLayout").desc("已送达").exists()) {
-//                    printLogMsg("私信发送成功");
-//                    break;
-//                }
-//                timeSleep(waitTwoSecond);
-//            }
-//
-//
-//            if (className("TextView").text("刚刚").exists()) {
-//                printLogMsg("私信发送成功");
-//            }
-//            timeSleep(waitTwoSecond);
-//
-//
-//            printLogMsg("执行完当前私信脚本，即将返回到APP主页");
-//            for (int i = 0; i < 5; i++) {
-//                printLogMsg("执行第" + i + "次返回");
-//                back();
-//                timeSleep(waitOneSecond);
-//            }
+
+
+            timeSleep(waitSixSecond);
+            while (true) {
+                if (className("TextView").desc("私信").exists()) {
+                    className("TextView").desc("私信").findOne().click();
+                    printLogMsg("点击私信按钮成功");
+                    break;
+                }
+                timeSleep(waitTwoSecond);
+            }
+            timeSleep(waitTwoSecond);
+
+
+            if (className("ImageView").desc("会话").exists()) {
+                className("ImageView").desc("会话").findOne().click();
+                printLogMsg("点击会话按钮成功");
+            }
+            timeSleep(waitTwoSecond);
+            click(395, 1810);
+            printLogMsg("点击评论按钮成功");
+            timeSleep(waitTwoSecond);
+
+            className("android.widget.EditText").findOne().setText(doyinBean.getComment());
+            printLogMsg("输入私信内容成功");
+            timeSleep(waitTwoSecond);
+
+            while (true) {
+                if (className("ImageView").desc("发送").exists()) {
+                    className("ImageView").desc("发送").findOne().click();
+                    printLogMsg("点击发送按钮成功");
+                    break;
+                }
+            }
+            timeSleep(waitTwoSecond);
+
+
+            for (int i = 0; i < 5; i++) {
+                if (className("LinearLayout").desc("已送达").exists()) {
+                    printLogMsg("私信发送成功");
+                    break;
+                }
+                timeSleep(waitTwoSecond);
+            }
+
+
+            if (className("TextView").text("刚刚").exists()) {
+                printLogMsg("私信发送成功");
+            }
+            timeSleep(waitTwoSecond);
+
+
+            printLogMsg("执行完当前私信脚本，即将返回到APP主页");
+            for (int i = 0; i < 5; i++) {
+                printLogMsg("执行第" + i + "次返回");
+                back();
+                timeSleep(waitOneSecond);
+            }
+        }
+
+//        jumpApp("com.ss.android.ugc.aweme");
+//        printLogMsg("抖音打开成功");
+        timeSleep(waitSixSecond);
+//        if (id("e1x").className("LinearLayout").exists()) {
+//            className("LinearLayout").findOne(9).click();
+////            id("e1x").findOne(6000).click();
+//            printLogMsg("点击点赞按钮成功");
+//            return;
+//        }
+/************************/
+//        if (className("LinearLayout").descContains("未点赞").exists()) {
+//            //首页点赞
+//            className("LinearLayout").descContains("未点赞").findOne().click();
+//            printLogMsg("点击点赞按钮成功");
 //        }
 
-        jumpApp("com.ss.android.ugc.aweme");
-        printLogMsg("抖音打开成功");
+
+//        if (className("LinearLayout").descContains("评论").exists()) {
+//            //首页评论标签
+//            className("LinearLayout").descContains("评论").findOne().click();
+//            printLogMsg("点击点赞按钮成功");
+//        }
+
+        /*************************/
+
+
         while (true) {
             for (int num = 0; num < 1000000; num++) {
                 UiSelector uiSelector = new UiSelector();
@@ -197,46 +221,51 @@ public class TaskDemo extends UiSelector {
                 }
                 timeSleep(waitOneSecond);
                 //包含评论按钮，是视频
-                if (id("com.ss.android.ugc.aweme:id/dgg").exists()) {
+                if (className("LinearLayout").descContains("未点赞").exists()) {
                     printLogMsg("当前播放为短视频");
                     int random = new Random().nextInt(100);
                     if (random > 10) {
                         if (className("LinearLayout").descContains("未点赞").exists()) {
-                            click(987, 708);
+                            //首页点赞
+                            className("LinearLayout").descContains("未点赞").findOne().click();
                             printLogMsg("点击点赞按钮成功");
                         }
-//                    className("LinearLayout").descContains("未点赞").find();
-//                    printLogMsg("点击点赞按钮成功");
                     }
-                    timeSleep(waitOneSecond);
+                    timeSleep(waitTwoSecond);
+                    if (random > 10) {
+                        //            //首页评论标签
+                        className("LinearLayout").descContains("评论").findOne().click();
+                        printLogMsg("点击评论按钮成功");
+                        timeSleep(waitTwoSecond);
+                        className("EditText").findOne(0).setText("是你啊");
+                        printLogMsg("输入评论内容成功");
+                        timeSleep(waitTwoSecond);
+//                        click(300, 1827);
+                        className("EditText").findOne(0).clickPoint();
+                        printLogMsg("点击评论框按钮成功");
+                        timeSleep(waitTwoSecond);
+                        className("EditText").findOne(0).setText("是你啊");
+                        printLogMsg("输入评论内容成功");
+                        timeSleep(waitTwoSecond);
+                        className("TextView").text("发送").findOne().clickPoint();
+                        printLogMsg("点击发布评论按钮成功");
+
+                        timeSleep(waitThreeSecond);
+//                        click(967, 773);
+//                        printLogMsg("点击发布评论按钮成功");
+                        back();
+                        printLogMsg("关闭评论列表成功");
+                        timeSleep(waitThreeSecond);
+                    }
                     if (random > 10) {
                         if (className("LinearLayout").descContains("未选中").exists()) {
-//                        className("LinearLayout").descContains("未选中").findOne().click();
-                            click(984, 1121);
+                            className("LinearLayout").descContains("未选中").findOne().click();
                             printLogMsg("点击收藏按钮成功");
                         }
 
                     }
-                    timeSleep(waitOneSecond);
-                    if (random > 10) {
-                        click(987, 912);
-                        printLogMsg("点击评论按钮成功");
-                        timeSleep(waitTwoSecond);
-                        className("EditText").findOne().click();
-                        printLogMsg("点击评论框按钮成功");
-                        timeSleep(waitTwoSecond);
-                        className("EditText").findOne().setText("是你啊" + num);
-                        id("dfb").findOne().setText("是你啊" + num);
-//                        ClipboardUtils.copyText("是你啊" + num);
-                        printLogMsg("输入评论内容成功");
-                        timeSleep(waitTwoSecond);
-                        click(967, 768);
-                        printLogMsg("点击发布评论按钮成功");
-                        timeSleep(waitTwoSecond);
-                        uiSelector.className("ImageView").desc("关闭").findOne().click();
-                        printLogMsg("关闭评论列表成功");
-                        timeSleep(waitOneSecond);
-                    }
+                    timeSleep(waitThreeSecond);
+
                 } else {
                     printLogMsg("当前播放为直播");
                 }
