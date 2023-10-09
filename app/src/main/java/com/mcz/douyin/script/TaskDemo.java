@@ -232,10 +232,9 @@ public class TaskDemo extends UiSelector {
                         //            //首页评论标签
                         className("LinearLayout").descContains("评论").findOne().click();
                         printLogMsg("点击评论按钮成功");
-                        timeSleep(waitFourSecond);
-                        if (className("ImageView").descContains("全屏").exists()) {
-                            className("ImageView").descContains("全屏").findOne().clickPoint();
-                            printLogMsg("点击全屏按钮成功");
+                        timeSleep(waitTwoSecond);
+                        if (!className("TextView").textContains("条评论").exists()) {
+                            back();
                             timeSleep(waitTwoSecond);
                         }
                         className("EditText").findOne().setText("是你啊");
@@ -285,16 +284,19 @@ public class TaskDemo extends UiSelector {
                         back();
                         printLogMsg("关闭评论列表成功");
                         timeSleep(waitThreeSecond);
+
+                        swipe((int) (mWidth / 2), mHeight - 480, (int) (mWidth / 2) + 80, 200, 450);
+                        timeSleep(waitFiveSecond + new Random().nextInt(waitFiveSecond));
                     }
 
 
                 } else {
                     printLogMsg("当前播放为直播");
+
+                    swipe((int) (mWidth / 2), mHeight - 480, (int) (mWidth / 2) + 80, 200, 450);
+                    timeSleep(waitFiveSecond + new Random().nextInt(waitFiveSecond));
                 }
 
-
-                swipe((int) (mWidth / 2), mHeight - 480, (int) (mWidth / 2) + 80, 200, 450);
-                timeSleep(waitFiveSecond + new Random().nextInt(waitFiveSecond));
 
             }
             break;
