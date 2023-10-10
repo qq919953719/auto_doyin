@@ -225,6 +225,9 @@ public class TaskDemo extends UiSelector {
 
         /*************************/
 
+        jumpApp("com.ss.android.ugc.aweme");
+        printLogMsg("抖音打开成功");
+        timeSleep(waitSixSecond);
 
         while (true) {
             for (int num = 0; num < 1000000; num++) {
@@ -257,7 +260,7 @@ public class TaskDemo extends UiSelector {
                     if (random > 10) {
                         if (className("LinearLayout").descContains("未点赞").exists()) {
                             //首页点赞
-                            className("LinearLayout").descContains("未点赞").findOne().clickPoint();
+                            className("LinearLayout").descContains("未点赞").findOne().click();
                             printLogMsg("点击点赞按钮成功");
                         }
                     }
@@ -272,7 +275,6 @@ public class TaskDemo extends UiSelector {
                     }
                     timeSleep(waitThreeSecond);
 
-
                     if (random > 10) {
                         //            //首页评论标签
                         className("LinearLayout").descContains("评论").findOne().click();
@@ -282,15 +284,34 @@ public class TaskDemo extends UiSelector {
                             back();
                             timeSleep(waitTwoSecond);
                         }
-                        className("EditText").findOne().setText("是你啊");
+                        className("EditText").findOne().click();
+                        timeSleep(waitTwoSecond);
+//                        className("EditText").findOne().setText("是你啊");
+//                        printLogMsg("输入评论内容成功");
+//                        timeSleep(waitTwoSecond);
+//                        click(967, 1837);
+//                        printLogMsg("坐标成功");
+
+                        int randomciclkNum = new Random().nextInt(6) + 2;
+                        for (int i = 0; i < randomciclkNum; i++) {
+                            int randomx = new Random().nextInt(1056) + 38;
+                            int randomy = new Random().nextInt(407) + 1280;
+                            click(randomx, randomy);
+                            printLogMsg("点击" + i + "次键盘");
+
+                        }
+                        click(989, 1831);
                         printLogMsg("输入评论内容成功");
                         timeSleep(waitTwoSecond);
-                        click(967, 1837);
-                        printLogMsg("坐标成功");
+                        click(963, 777);
+                        printLogMsg("点击评论按钮成功");
                         timeSleep(waitTwoSecond);
-                        className("TextView").text("发送").findOne().clickPoint();
-                        printLogMsg("点击发布评论按钮成功");
-                        timeSleep(waitTwoSecond);
+//                        className("EditText").findOne().setText("是你啊");
+//
+//                        timeSleep(waitTwoSecond);
+//                        className("TextView").text("发送").findOne().clickPoint();
+//                        printLogMsg("点击发布评论按钮成功");
+//                        timeSleep(waitTwoSecond);
 //
 //                        className("EditText").findOne(0).clickPoint();
 //                        timeSleep(waitThreeSecond);
