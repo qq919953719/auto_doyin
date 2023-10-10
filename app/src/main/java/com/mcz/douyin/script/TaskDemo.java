@@ -43,6 +43,12 @@ public class TaskDemo extends UiSelector {
             jumpApp("com.ss.android.ugc.aweme");
             printLogMsg("抖音打开成功");
             timeSleep(waitSixSecond);
+            if (className("Button").text("拒绝").exists()) {
+                //通讯录
+                className("Button").text("拒绝").findOne().click();
+                break;
+            }
+            timeSleep(waitTwoSecond);
             while (true) {
                 if (className("TextView").desc("首页，按钮").exists()) {
                     className("TextView").desc("首页，按钮").findOne().click();
