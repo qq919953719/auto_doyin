@@ -96,7 +96,7 @@ public class FunctionActivity extends AppCompatActivity {
 
         AutoDataBean.DataDTO bean1 = new AutoDataBean.DataDTO();
         bean1.setComment("你在干嘛呢？");
-        bean1.setDyName("钓鱼大王");
+        bean1.setDyName("钓鱼小组");
         bean1.setProbability(100);
         autoDataBeanList.add(bean1);
         printLogMsg("获取数据成功");

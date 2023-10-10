@@ -44,11 +44,17 @@ public class TaskDemo extends UiSelector {
             printLogMsg("抖音打开成功");
             timeSleep(waitSixSecond);
             if (className("Button").text("拒绝").exists()) {
-                //通讯录
+                //关闭通讯录
                 className("Button").text("拒绝").findOne().click();
                 break;
             }
             timeSleep(waitTwoSecond);
+            if (className("ImageView").desc("关闭").exists()) {
+                //关闭通讯录
+                className("ImageView").desc("关闭").findOne().click();
+            }
+            timeSleep(waitTwoSecond);
+            int loopTime = 0;
             while (true) {
                 if (className("TextView").desc("首页，按钮").exists()) {
                     className("TextView").desc("首页，按钮").findOne().click();
@@ -58,10 +64,16 @@ public class TaskDemo extends UiSelector {
                 if (className("ImageView").desc("关闭").exists()) {
                     className("ImageView").desc("关闭").findOne().click();
                 }
+                loopTime++;
+                if (loopTime > 20) {
+                    printLogMsg("循环次数过多，已停止查询");
+                    break;
+                }
             }
             timeSleep(waitThreeSecond);
             int randow = new Random().nextInt(3);
             viewVideo(randow);
+            loopTime = 0;
 
             while (true) {
                 if (className("TextView").desc("搜索").exists()) {
@@ -74,6 +86,11 @@ public class TaskDemo extends UiSelector {
                     printLogMsg("点击搜索按钮Button成功");
                     break;
                 }
+                loopTime++;
+                if (loopTime > 20) {
+                    printLogMsg("循环次数过多，已停止查询");
+                    break;
+                }
             }
 
 
@@ -84,10 +101,16 @@ public class TaskDemo extends UiSelector {
             click(291, 241);
             printLogMsg("点击搜索结果第一个");
             timeSleep(waitTwoSecond);
+            loopTime = 0;
             while (true) {
                 if (className("Button").text("用户").exists()) {
                     className("Button").text("用户").findOne().click();
                     printLogMsg("点击用户按钮成功");
+                    break;
+                }
+                loopTime++;
+                if (loopTime > 20) {
+                    printLogMsg("循环次数过多，已停止查询");
                     break;
                 }
             }
@@ -118,17 +141,23 @@ public class TaskDemo extends UiSelector {
 
 
             timeSleep(waitSixSecond);
+            loopTime = 0;
             while (true) {
                 if (className("TextView").desc("私信").exists()) {
                     className("TextView").desc("私信").findOne().click();
                     printLogMsg("点击私信按钮成功");
                     break;
                 }
+                loopTime++;
+                if (loopTime > 20) {
+                    printLogMsg("循环次数过多，已停止查询");
+                    break;
+                }
             }
 
             timeSleep(waitSixSecond);
 
-
+            loopTime = 0;
             while (true) {
 
                 if (className("ImageView").descContains("拍摄").exists()) {
@@ -137,6 +166,11 @@ public class TaskDemo extends UiSelector {
                 if (className("ImageView").descContains("会话").exists()) {
                     className("ImageView").descContains("会话").findOne().click();
                     printLogMsg("点击会话按钮成功");
+                    break;
+                }
+                loopTime++;
+                if (loopTime > 20) {
+                    printLogMsg("循环次数过多，已停止查询");
                     break;
                 }
             }
@@ -150,11 +184,16 @@ public class TaskDemo extends UiSelector {
             className("android.widget.EditText").findOne().setText(doyinBean.getComment());
             printLogMsg("输入私信内容成功");
             timeSleep(waitTwoSecond);
-
+            loopTime = 0;
             while (true) {
                 if (className("ImageView").desc("发送").exists()) {
                     className("ImageView").desc("发送").findOne().click();
                     printLogMsg("点击发送按钮成功");
+                    break;
+                }
+                loopTime++;
+                if (loopTime > 20) {
+                    printLogMsg("循环次数过多，已停止查询");
                     break;
                 }
             }
@@ -399,9 +438,15 @@ public class TaskDemo extends UiSelector {
             String comment = bean.getComment();
             printLogMsg("获取数据:" + nickName);
             timeSleep(waitTwoSecond);
+            int loopTime = 0;
             while (true) {
                 if (className("Button").desc("搜索").exists()) {
                     className("Button").desc("搜索").findOne().click();
+                    break;
+                }
+                loopTime++;
+                if (loopTime > 20) {
+                    printLogMsg("循环次数过多，已停止查询");
                     break;
                 }
             }
