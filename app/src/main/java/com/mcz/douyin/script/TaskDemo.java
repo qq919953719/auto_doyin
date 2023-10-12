@@ -22,6 +22,7 @@ import com.mcz.douyin.bean.AutoFollowDataBean;
 import com.mcz.douyin.node.AccUtils;
 import com.mcz.douyin.node.UiCollection;
 import com.mcz.douyin.node.UiSelector;
+import com.mcz.douyin.script.dyService.TaskItemDemo;
 import com.mcz.douyin.ui.FunctionActivity;
 
 import java.util.List;
@@ -37,21 +38,189 @@ public class TaskDemo extends UiSelector {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void startAutoParenting(AutoDataBean bean) {
         this.autoDataBean = bean;
+        //私信
+        sendMessage(bean);
+        /*************************/
 
+        jumpApp("com.ss.android.ugc.aweme");
+        printLogMsg("抖音打开成功");
+        timeSleep(waitSixSecond);
+        while (true) {
+            for (int num = 0; num < 1000000; num++) {
+
+                TaskItemDemo itemDemo = new TaskItemDemo();
+                itemDemo.startAutoParenting(autoDataBean.getData().get(0));
+
+//
+//
+//                viewVideo(1);
+//                UiSelector uiSelector = new UiSelector();
+//                printLogMsg("刷" + num + "个视频，点掉弹窗");
+//                uiSelector.text("我知道了").findOne().click();
+//                timeSleep(waitOneSecond);
+//                uiSelector.text("关闭").findOne().click();
+//                timeSleep(waitOneSecond);
+//                uiSelector.text("以后再说").findOne().click();
+//                timeSleep(waitOneSecond);
+//                if (className("ImageView").desc("关闭").exists()) {
+//                    uiSelector.className("ImageView").desc("关闭").findOne().click();
+//                }
+//                timeSleep(waitOneSecond);
+////                if (uiSelector.className("TextView").text("上滑继续看视频").exists()) {
+////                    swipe((int) (mWidth / 2), mHeight - 480, (int) (mWidth / 2) + 80, 200, 450);
+////                    printLogMsg("当前为关注好友页面，划走");
+////                    timeSleep(waitFiveSecond + new Random().nextInt(waitFiveSecond));
+////                }
+////                timeSleep(waitOneSecond);
+//                //包含评论按钮，是视频
+//                if (className("LinearLayout").descContains("未点赞").exists()) {
+//                    printLogMsg("当前播放为短视频");
+//                    int random = new Random().nextInt(100);
+//                    if (random > 10) {
+//                        if (className("LinearLayout").descContains("未选中").exists()) {
+//                            className("LinearLayout").descContains("未选中").findOne().click();
+////                            click(987, 1246);
+//                            printLogMsg("点击收藏按钮成功");
+//                            timeSleep(waitTwoSecond);
+//                        }
+//
+//                    }
+//
+//                    if (random > 10) {
+//                        if (className("LinearLayout").descContains("未点赞").exists()) {
+//                            //首页点赞
+//                            className("LinearLayout").descContains("未点赞").findOne().click();
+//                            printLogMsg("点击点赞按钮成功");
+//                        }
+//                    }
+//                    timeSleep(waitTwoSecond);
+//
+//                    if (random > 10) {
+//                        if (className("LinearLayout").descContains("未选中").exists()) {
+//                            className("LinearLayout").descContains("未选中").findOne().clickPoint();
+//                            printLogMsg("点击收藏按钮成功");
+//                        }
+//
+//                    }
+//                    timeSleep(waitThreeSecond);
+//
+//                    if (random > 10) {
+//                        //            //首页评论标签
+//                        className("LinearLayout").descContains("评论").findOne().click();
+//                        printLogMsg("点击评论按钮成功");
+//                        timeSleep(waitTwoSecond);
+//                        if (!className("TextView").textContains("条评论").exists()) {
+//                            back();
+//                            timeSleep(waitTwoSecond);
+//                        }
+//                        className("EditText").findOne().click();
+//                        timeSleep(waitTwoSecond);
+////                        className("EditText").findOne().setText("是你啊");
+////                        printLogMsg("输入评论内容成功");
+////                        timeSleep(waitTwoSecond);
+////                        click(967, 1837);
+////                        printLogMsg("坐标成功");
+//
+//                        int randomciclkNum = new Random().nextInt(6) + 2;
+//                        for (int i = 0; i < randomciclkNum; i++) {
+//                            int randomx = new Random().nextInt(1056) + 38;
+//                            int randomy = new Random().nextInt(407) + 1280;
+//                            click(randomx, randomy);
+//                            printLogMsg("点击" + i + "次键盘");
+//
+//                        }
+//                        click(989, 1831);
+//                        printLogMsg("输入评论内容成功");
+//                        timeSleep(waitTwoSecond);
+//                        click(963, 777);
+//                        printLogMsg("点击评论按钮成功");
+//                        timeSleep(waitTwoSecond);
+////                        className("EditText").findOne().setText("是你啊");
+////
+////                        timeSleep(waitTwoSecond);
+////                        className("TextView").text("发送").findOne().clickPoint();
+////                        printLogMsg("点击发布评论按钮成功");
+////                        timeSleep(waitTwoSecond);
+////
+////                        className("EditText").findOne(0).clickPoint();
+////                        timeSleep(waitThreeSecond);
+////                        printLogMsg("点击评论框按钮成功");
+////                        timeSleep(waitTwoSecond);
+//////                        className("android.widget.EditText").findOne().setText("是你啊");
+//////                        className("EditText").findOne(0).setText("是你啊");
+//////                        printLogMsg("输入评论内容成功");
+////                        int randomciclkNum = new Random().nextInt(6) + 2;
+////                        for (int i = 0; i < randomciclkNum; i++) {
+////                            int randomx = new Random().nextInt(1056) + 38;
+////                            int randomy = new Random().nextInt(407) + 1280;
+////                            click(randomx, randomy);
+////                        }
+////                        click(982, 1829);
+////                        printLogMsg("输入评论内容成功");
+////                        timeSleep(waitTwoSecond);
+////                        back();
+////                        printLogMsg("返回");
+////                        timeSleep(waitTwoSecond);
+////                        className("TextView").text("发送").findOne().clickPoint();
+////                        printLogMsg("点击发布评论按钮成功");
+////                        timeSleep(waitTwoSecond);
+////                        back();
+////                        printLogMsg("返回");
+////                        timeSleep(waitTwoSecond);
+////                        className("LinearLayout").descContains("评论").findOne().click();
+////                        printLogMsg("点击评论按钮成功");
+////                        timeSleep(waitTwoSecond);
+////                        className("TextView").text("发送").findOne().clickPoint();
+////                        printLogMsg("点击发布评论按钮成功");
+//
+//                        timeSleep(waitThreeSecond);
+////                        click(967, 773);
+////                        printLogMsg("点击发布评论按钮成功");
+//                        back();
+//                        printLogMsg("关闭评论列表成功");
+//                        timeSleep(waitThreeSecond);
+//
+//                        swipe((int) (mWidth / 2), mHeight - 480, (int) (mWidth / 2) + 80, 200, 450);
+//                        timeSleep(waitFiveSecond + new Random().nextInt(waitFiveSecond));
+//                    }
+//
+
+//                } else {
+//                    printLogMsg("当前播放为直播");
+//
+//                    swipe((int) (mWidth / 2), mHeight - 480, (int) (mWidth / 2) + 80, 200, 450);
+//                    timeSleep(waitFiveSecond + new Random().nextInt(waitFiveSecond));
+//                }
+
+
+            }
+            break;
+
+        }
+
+        printLogMsg("脚本之心完毕");
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void sendMessage(AutoDataBean bean) {
+        //私信
+        jumpApp("com.ss.android.ugc.aweme");
+        printLogMsg("抖音打开成功");
+        timeSleep(waitSixSecond);
+        printLogMsg("开始执行私信操作");
         for (AutoDataBean.DataDTO doyinBean : bean.getData()) {
-            //私信
-            jumpApp("com.ss.android.ugc.aweme");
-            printLogMsg("抖音打开成功");
-            timeSleep(waitSixSecond);
             if (className("Button").text("拒绝").exists()) {
                 //关闭通讯录
                 className("Button").text("拒绝").findOne().click();
-                break;
+                printLogMsg("关闭通讯录");
             }
             timeSleep(waitTwoSecond);
             if (className("ImageView").desc("关闭").exists()) {
                 //关闭通讯录
                 className("ImageView").desc("关闭").findOne().click();
+                printLogMsg("关闭通讯录");
             }
             timeSleep(waitTwoSecond);
             int loopTime = 0;
@@ -71,8 +240,6 @@ public class TaskDemo extends UiSelector {
                 }
             }
             timeSleep(waitThreeSecond);
-            int randow = new Random().nextInt(3);
-            viewVideo(randow);
             loopTime = 0;
 
             while (true) {
@@ -118,16 +285,17 @@ public class TaskDemo extends UiSelector {
             timeSleep(waitSixSecond);
 
 
-            className("RecyclerView").find().filter(new UiCollection.FilterCondition<AccessibilityNodeInfo>() {
-                @Override
-                public boolean shouldKeep(AccessibilityNodeInfo item) {
-                    AccessibilityNodeInfo accessibilityNodeInfo = item.getChild(0);
-                    AccUtils.clickNodeByPoint(accessibilityNodeInfo);
-                    printLogMsg("点击搜索到的第一个用户头像成功");
-                    return false;
-                }
-            });
-
+//            className("RecyclerView").find().filter(new UiCollection.FilterCondition<AccessibilityNodeInfo>() {
+//                @Override
+//                public boolean shouldKeep(AccessibilityNodeInfo item) {
+//                    AccessibilityNodeInfo accessibilityNodeInfo = item.getChild(0);
+//                    AccUtils.clickNodeByPoint(accessibilityNodeInfo);
+//                    printLogMsg("点击搜索到的第一个用户头像成功");
+//                    return false;
+//                }
+//            });
+            click(520, 370);
+            printLogMsg("点击搜索到的第一个用户头像成功");
             timeSleep(waitSixSecond);
 
 
@@ -222,155 +390,6 @@ public class TaskDemo extends UiSelector {
                 timeSleep(waitOneSecond);
             }
         }
-
-        /*************************/
-
-        jumpApp("com.ss.android.ugc.aweme");
-        printLogMsg("抖音打开成功");
-        timeSleep(waitSixSecond);
-
-        while (true) {
-            for (int num = 0; num < 1000000; num++) {
-                UiSelector uiSelector = new UiSelector();
-                printLogMsg("刷" + num + "个视频，点掉弹窗");
-                uiSelector.text("我知道了").findOne().click();
-                timeSleep(waitOneSecond);
-                uiSelector.text("关闭").findOne().click();
-                timeSleep(waitOneSecond);
-                uiSelector.text("以后再说").findOne().click();
-                timeSleep(waitOneSecond);
-                if (className("ImageView").desc("关闭").exists()) {
-                    uiSelector.className("ImageView").desc("关闭").findOne().click();
-                }
-                timeSleep(waitOneSecond);
-                //包含评论按钮，是视频
-                if (className("LinearLayout").descContains("未点赞").exists()) {
-                    printLogMsg("当前播放为短视频");
-                    int random = new Random().nextInt(100);
-                    if (random > 10) {
-                        if (className("LinearLayout").descContains("未选中").exists()) {
-                            className("LinearLayout").descContains("未选中").findOne().click();
-//                            click(987, 1246);
-                            printLogMsg("点击收藏按钮成功");
-                            timeSleep(waitTwoSecond);
-                        }
-
-                    }
-
-                    if (random > 10) {
-                        if (className("LinearLayout").descContains("未点赞").exists()) {
-                            //首页点赞
-                            className("LinearLayout").descContains("未点赞").findOne().click();
-                            printLogMsg("点击点赞按钮成功");
-                        }
-                    }
-                    timeSleep(waitTwoSecond);
-
-                    if (random > 10) {
-                        if (className("LinearLayout").descContains("未选中").exists()) {
-                            className("LinearLayout").descContains("未选中").findOne().clickPoint();
-                            printLogMsg("点击收藏按钮成功");
-                        }
-
-                    }
-                    timeSleep(waitThreeSecond);
-
-                    if (random > 10) {
-                        //            //首页评论标签
-                        className("LinearLayout").descContains("评论").findOne().click();
-                        printLogMsg("点击评论按钮成功");
-                        timeSleep(waitTwoSecond);
-                        if (!className("TextView").textContains("条评论").exists()) {
-                            back();
-                            timeSleep(waitTwoSecond);
-                        }
-                        className("EditText").findOne().click();
-                        timeSleep(waitTwoSecond);
-//                        className("EditText").findOne().setText("是你啊");
-//                        printLogMsg("输入评论内容成功");
-//                        timeSleep(waitTwoSecond);
-//                        click(967, 1837);
-//                        printLogMsg("坐标成功");
-
-                        int randomciclkNum = new Random().nextInt(6) + 2;
-                        for (int i = 0; i < randomciclkNum; i++) {
-                            int randomx = new Random().nextInt(1056) + 38;
-                            int randomy = new Random().nextInt(407) + 1280;
-                            click(randomx, randomy);
-                            printLogMsg("点击" + i + "次键盘");
-
-                        }
-                        click(989, 1831);
-                        printLogMsg("输入评论内容成功");
-                        timeSleep(waitTwoSecond);
-                        click(963, 777);
-                        printLogMsg("点击评论按钮成功");
-                        timeSleep(waitTwoSecond);
-//                        className("EditText").findOne().setText("是你啊");
-//
-//                        timeSleep(waitTwoSecond);
-//                        className("TextView").text("发送").findOne().clickPoint();
-//                        printLogMsg("点击发布评论按钮成功");
-//                        timeSleep(waitTwoSecond);
-//
-//                        className("EditText").findOne(0).clickPoint();
-//                        timeSleep(waitThreeSecond);
-//                        printLogMsg("点击评论框按钮成功");
-//                        timeSleep(waitTwoSecond);
-////                        className("android.widget.EditText").findOne().setText("是你啊");
-////                        className("EditText").findOne(0).setText("是你啊");
-////                        printLogMsg("输入评论内容成功");
-//                        int randomciclkNum = new Random().nextInt(6) + 2;
-//                        for (int i = 0; i < randomciclkNum; i++) {
-//                            int randomx = new Random().nextInt(1056) + 38;
-//                            int randomy = new Random().nextInt(407) + 1280;
-//                            click(randomx, randomy);
-//                        }
-//                        click(982, 1829);
-//                        printLogMsg("输入评论内容成功");
-//                        timeSleep(waitTwoSecond);
-//                        back();
-//                        printLogMsg("返回");
-//                        timeSleep(waitTwoSecond);
-//                        className("TextView").text("发送").findOne().clickPoint();
-//                        printLogMsg("点击发布评论按钮成功");
-//                        timeSleep(waitTwoSecond);
-//                        back();
-//                        printLogMsg("返回");
-//                        timeSleep(waitTwoSecond);
-//                        className("LinearLayout").descContains("评论").findOne().click();
-//                        printLogMsg("点击评论按钮成功");
-//                        timeSleep(waitTwoSecond);
-//                        className("TextView").text("发送").findOne().clickPoint();
-//                        printLogMsg("点击发布评论按钮成功");
-
-                        timeSleep(waitThreeSecond);
-//                        click(967, 773);
-//                        printLogMsg("点击发布评论按钮成功");
-                        back();
-                        printLogMsg("关闭评论列表成功");
-                        timeSleep(waitThreeSecond);
-
-                        swipe((int) (mWidth / 2), mHeight - 480, (int) (mWidth / 2) + 80, 200, 450);
-                        timeSleep(waitFiveSecond + new Random().nextInt(waitFiveSecond));
-                    }
-
-
-                } else {
-                    printLogMsg("当前播放为直播");
-
-                    swipe((int) (mWidth / 2), mHeight - 480, (int) (mWidth / 2) + 80, 200, 450);
-                    timeSleep(waitFiveSecond + new Random().nextInt(waitFiveSecond));
-                }
-
-
-            }
-            break;
-
-        }
-
-        printLogMsg("脚本之心完毕");
-
     }
 
 

@@ -23,6 +23,7 @@ import com.mcz.douyin.bean.AutoDataBean;
 import com.mcz.douyin.bean.AutoFollowDataBean;
 import com.mcz.douyin.databinding.ActivityFunctionBinding;
 import com.mcz.douyin.script.TaskDemo;
+import com.mcz.douyin.script.dyService.TaskItemDemo;
 import com.mcz.douyin.util.Constant;
 import com.mcz.douyin.util.OkManager;
 
@@ -35,7 +36,7 @@ import java.util.Map;
 
 
 public class FunctionActivity extends AppCompatActivity {
-    private int delayTime = 600000;  //10分钟执行一次
+    private int delayTime = 60000000;  //10分钟执行一次
     private static final String TAG = "MainActivity";
     private String loginAutoSystemUrl = "https://juzhen.xibeizhenxing.com/api/user/DyName";
     private String loginAutoFollowUrl = "https://juzhen.xibeizhenxing.com/api/user/getFollowName";
@@ -89,22 +90,38 @@ public class FunctionActivity extends AppCompatActivity {
     private void getAutoData() {
         autoDataBeanList.clear();
         AutoDataBean.DataDTO bean = new AutoDataBean.DataDTO();
-        bean.setComment("哈哈哈");
-        bean.setDyName("小鱼鱼");
+        bean.setComment("关注你了，记得回关一下奥");
+        bean.setId(1);
+        bean.setDyName("我是智慧醸");
         bean.setProbability(100);
         autoDataBeanList.add(bean);
 
         AutoDataBean.DataDTO bean1 = new AutoDataBean.DataDTO();
-        bean1.setComment("你在干嘛呢？");
-        bean1.setDyName("钓鱼小组");
+        bean1.setComment("你在干嘛呢？什么时候开直播啊？");
+        bean1.setDyName("石头人");
         bean1.setProbability(100);
+        bean1.setId(2);
         autoDataBeanList.add(bean1);
         printLogMsg("获取数据成功");
+//
+//
+//        for (int i = 3; i < 100; i++) {
+//            AutoDataBean.DataDTO beanDemo = new AutoDataBean.DataDTO();
+//            beanDemo.setId(i);
+//            autoDataBeanList.add(beanDemo);
+//
+//        }
         AutoDataBean myBean = new AutoDataBean();
         myBean.setData(autoDataBeanList);
         new Thread(new Runnable() {
             @Override
             public void run() {
+//                for (AutoDataBean.DataDTO doyinBean : autoDataBeanList) {
+//                    TaskItemDemo itemDemo = new TaskItemDemo();
+//                    itemDemo.startAutoParenting(doyinBean);
+//                }
+
+
                 TaskDemo demo = new TaskDemo();
                 demo.startAutoParenting(myBean);
             }
