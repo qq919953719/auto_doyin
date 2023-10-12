@@ -378,7 +378,7 @@ public class TaskDemo extends UiSelector {
             timeSleep(waitTwoSecond);
 
 
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 6; i++) {
                 if (className("LinearLayout").desc("已送达").exists()) {
                     printLogMsg("私信发送成功");
                     break;
