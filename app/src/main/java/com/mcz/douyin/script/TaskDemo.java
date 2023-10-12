@@ -48,8 +48,18 @@ public class TaskDemo extends UiSelector {
         while (true) {
             for (int num = 0; num < 1000000; num++) {
 
-                TaskItemDemo itemDemo = new TaskItemDemo();
-                itemDemo.startAutoParenting(autoDataBean.getData().get(0));
+                try {
+                    timeSleep(waitSixSecond);
+                    TaskItemDemo itemDemo = new TaskItemDemo();
+                    itemDemo.startAutoParenting(autoDataBean.getData().get(0));
+
+                } catch (Exception e) {
+                    home();
+                    timeSleep(waitSixSecond);
+                    TaskItemDemo itemDemo = new TaskItemDemo();
+                    itemDemo.startAutoParenting(autoDataBean.getData().get(0));
+                    throw new RuntimeException(e);
+                }
 
 //
 //

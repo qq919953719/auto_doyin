@@ -41,11 +41,8 @@ public class TaskItemDemo extends UiSelector {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void startAutoParenting(AutoDataBean.DataDTO bean) {
-        //私信
-//        sendMessage(bean);
-
+        //养号
         /*************************/
-
         jumpApp("com.ss.android.ugc.aweme");
         printLogMsg("抖音打开成功");
         timeSleep(waitSixSecond);

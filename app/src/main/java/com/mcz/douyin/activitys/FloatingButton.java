@@ -55,7 +55,7 @@ public class FloatingButton extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        btn_h = (int)(btn_w * 0.5638461538); // 按照比例调整
+        btn_h = (int) (btn_w * 0.5638461538); // 按照比例调整
         // 定义面板
         wm = (WindowManager) getSystemService(WINDOW_SERVICE);
         GlobalVariableHolder.btnTextView = new TextView(GlobalVariableHolder.context);
@@ -65,12 +65,12 @@ public class FloatingButton extends Service {
         GlobalVariableHolder.btnTextView.setText("打开");
         GlobalVariableHolder.btnTextView.setTextSize((float) (text_size + 2));
         GlobalVariableHolder.btnTextView.setGravity(Gravity.CENTER); //文字居中
-        GlobalVariableHolder.btnTextView.setTextColor(Color.argb(200,10,250,0));
+        GlobalVariableHolder.btnTextView.setTextColor(Color.argb(200, 10, 250, 0));
         GlobalVariableHolder.btnTextView.setLayoutParams(txtParameters);
 
         // LinearLayout 容器
         LinearLayout.LayoutParams llParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        ll.setBackgroundColor(Color.argb(180,0,0,0));
+        ll.setBackgroundColor(Color.argb(180, 0, 0, 0));
         ll.setGravity(Gravity.CENTER); //文字居中
         ll.setOrientation(LinearLayout.VERTICAL); //线性布局
         ll.setLayoutParams(llParameters);
@@ -121,15 +121,15 @@ public class FloatingButton extends Service {
 
     private void btnClick() {
         if ("打开".contentEquals(GlobalVariableHolder.btnTextView.getText())) {
-            Log.i(TAG, "onClick: 打开 --> 全屏");
-            GlobalVariableHolder.btnTextView.setText("全屏");
+            Log.i(TAG, "onClick: 打开 --> 隐藏");
+            GlobalVariableHolder.btnTextView.setText("隐藏");
 
             // 展开悬浮窗
             Intent intent = new Intent();
             intent.setAction("com.msg");
             intent.putExtra("msg", "show_max");
             GlobalVariableHolder.context.sendBroadcast(intent);
-        }else if("隐藏".contentEquals(GlobalVariableHolder.btnTextView.getText())){
+        } else if ("隐藏".contentEquals(GlobalVariableHolder.btnTextView.getText())) {
             Log.i(TAG, "onClick: 隐藏 --> 打开");
             GlobalVariableHolder.btnTextView.setText("打开");
 
@@ -138,7 +138,7 @@ public class FloatingButton extends Service {
             intent.setAction("com.msg");
             intent.putExtra("msg", "hide_mini");
             GlobalVariableHolder.context.sendBroadcast(intent);
-        }else if("全屏".contentEquals(GlobalVariableHolder.btnTextView.getText())) {
+        } else if ("全屏".contentEquals(GlobalVariableHolder.btnTextView.getText())) {
             Log.i(TAG, "onClick: 全屏 --> 隐藏");
             GlobalVariableHolder.btnTextView.setText("隐藏");
 

@@ -92,7 +92,7 @@ public class FunctionActivity extends AppCompatActivity {
         AutoDataBean.DataDTO bean = new AutoDataBean.DataDTO();
         bean.setComment("关注你了，记得回关一下奥");
         bean.setId(1);
-        bean.setDyName("我是智慧醸");
+        bean.setDyName("我是");
         bean.setProbability(100);
         autoDataBeanList.add(bean);
 
