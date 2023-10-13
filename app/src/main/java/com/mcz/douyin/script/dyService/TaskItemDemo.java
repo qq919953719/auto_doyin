@@ -171,7 +171,9 @@ public class TaskItemDemo extends UiSelector {
                 back();
                 printLogMsg("关闭评论列表成功");
                 timeSleep(waitThreeSecond);
-
+                back();
+                timeSleep(waitThreeSecond);
+                printLogMsg("再次返回保底！");
                 swipe((int) (mWidth / 2), mHeight - 480, (int) (mWidth / 2) + 80, 200, 450);
                 timeSleep(waitFiveSecond + new Random().nextInt(waitFiveSecond));
             }

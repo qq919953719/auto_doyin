@@ -36,7 +36,7 @@ import java.util.Map;
 
 
 public class FunctionActivity extends AppCompatActivity {
-    private int delayTime = 60000000;  //10分钟执行一次
+    private int delayTime = 600000000;  //10分钟执行一次
     private static final String TAG = "MainActivity";
     private String loginAutoSystemUrl = "https://juzhen.xibeizhenxing.com/api/user/DyName";
     private String loginAutoFollowUrl = "https://juzhen.xibeizhenxing.com/api/user/getFollowName";

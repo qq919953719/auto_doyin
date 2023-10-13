@@ -52,9 +52,8 @@ public class TaskDemo extends UiSelector {
                     timeSleep(waitSixSecond);
                     TaskItemDemo itemDemo = new TaskItemDemo();
                     itemDemo.startAutoParenting(autoDataBean.getData().get(0));
-
                 } catch (Exception e) {
-                    home();
+                    backToDesktop();
                     timeSleep(waitSixSecond);
                     TaskItemDemo itemDemo = new TaskItemDemo();
                     itemDemo.startAutoParenting(autoDataBean.getData().get(0));
