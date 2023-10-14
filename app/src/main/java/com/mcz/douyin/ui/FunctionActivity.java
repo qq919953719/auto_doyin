@@ -5,6 +5,7 @@ import static com.mcz.douyin.node.AccUtils.home;
 import static com.mcz.douyin.node.AccUtils.printLogMsg;
 import static com.mcz.douyin.node.AccUtils.timeSleep;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +27,7 @@ import com.mcz.douyin.bean.AutoFollowDataBean;
 import com.mcz.douyin.databinding.ActivityFunctionBinding;
 import com.mcz.douyin.script.TaskDemo;
 import com.mcz.douyin.script.dyService.TaskItemDemo;
+import com.mcz.douyin.ui.login.LoginActivity;
 import com.mcz.douyin.util.Constant;
 import com.mcz.douyin.util.OkManager;
 
@@ -126,6 +128,8 @@ public class FunctionActivity extends AppCompatActivity {
                     Log.i(TAG, "runMyUiautomator: ");
                     Toast.makeText(FunctionActivity.this, "start run", Toast.LENGTH_SHORT).show();
                 } else {
+                    Intent intent = new Intent(FunctionActivity.this, LoginActivity.class);
+                    startActivity(intent);
                     Toast.makeText(FunctionActivity.this, bean.getMsg(), Toast.LENGTH_SHORT).show();
                 }
                 binding.loading.setVisibility(View.GONE);
