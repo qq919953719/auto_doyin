@@ -14,22 +14,12 @@ import java.util.List;
 
 public class AutoDataBean {
 
-    @JSONField(name = "code")
-    private int code;
     @JSONField(name = "msg")
     private String msg;
-    @JSONField(name = "time")
-    private String time;
+    @JSONField(name = "code")
+    private int code;
     @JSONField(name = "data")
-    private List<DataDTO> data;
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
+    private DataDTO data;
 
     public String getMsg() {
         return msg;
@@ -39,83 +29,118 @@ public class AutoDataBean {
         this.msg = msg;
     }
 
-    public String getTime() {
-        return time;
+    public int getCode() {
+        return code;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public List<DataDTO> getData() {
+    public DataDTO getData() {
         return data;
     }
 
-    public void setData(List<DataDTO> data) {
+    public void setData(DataDTO data) {
         this.data = data;
     }
 
     public static class DataDTO {
-        @JSONField(name = "id")
-        private int id;
-        @JSONField(name = "dy_name")
-        private String dyName;
-        @JSONField(name = "department_id")
-        private int departmentId;
-        @JSONField(name = "createtime")
-        private int createtime;
-        @JSONField(name = "comment")
-        private String comment;
+        @JSONField(name = "device")
+        private DeviceDTO device;
+        @JSONField(name = "msgList")
+        private List<MsgListDTO> msgList;
+        @JSONField(name = "commentList")
+        private List<MsgListDTO> commentList;
+        @JSONField(name = "targetUserList")
+        private List<DeviceDTO> targetUserList;
 
-        public int getProbability() {
-            return probability;
+        public DeviceDTO getDevice() {
+            return device;
         }
 
-        public void setProbability(int probability) {
-            this.probability = probability;
+        public void setDevice(DeviceDTO device) {
+            this.device = device;
         }
 
-        @JSONField(name = "probability")
-        private int probability;
-
-        public int getId() {
-            return id;
+        public List<MsgListDTO> getMsgList() {
+            return msgList;
         }
 
-        public void setId(int id) {
-            this.id = id;
+        public void setMsgList(List<MsgListDTO> msgList) {
+            this.msgList = msgList;
         }
 
-        public String getDyName() {
-            return dyName;
+        public List<MsgListDTO> getCommentList() {
+            return commentList;
         }
 
-        public void setDyName(String dyName) {
-            this.dyName = dyName;
+        public void setCommentList(List<MsgListDTO> commentList) {
+            this.commentList = commentList;
         }
 
-        public int getDepartmentId() {
-            return departmentId;
+        public List<DeviceDTO> getTargetUserList() {
+            return targetUserList;
         }
 
-        public void setDepartmentId(int departmentId) {
-            this.departmentId = departmentId;
+        public void setTargetUserList(List<DeviceDTO> targetUserList) {
+            this.targetUserList = targetUserList;
         }
 
-        public int getCreatetime() {
-            return createtime;
+        public static class DeviceDTO {
+            @JSONField(name = "deviceID")
+            private String deviceID;
+            @JSONField(name = "account")
+            private String account;
+            @JSONField(name = "msgOn")
+            private String msgOn;
+            @JSONField(name = "growUpOn")
+            private String growUpOn;
+
+            public String getDeviceID() {
+                return deviceID;
+            }
+
+            public void setDeviceID(String deviceID) {
+                this.deviceID = deviceID;
+            }
+
+            public String getAccount() {
+                return account;
+            }
+
+            public void setAccount(String account) {
+                this.account = account;
+            }
+
+            public String getMsgOn() {
+                return msgOn;
+            }
+
+            public void setMsgOn(String msgOn) {
+                this.msgOn = msgOn;
+            }
+
+            public String getGrowUpOn() {
+                return growUpOn;
+            }
+
+            public void setGrowUpOn(String growUpOn) {
+                this.growUpOn = growUpOn;
+            }
         }
 
-        public void setCreatetime(int createtime) {
-            this.createtime = createtime;
-        }
+        public static class MsgListDTO {
+            @JSONField(name = "msg")
+            private String msg;
 
-        public String getComment() {
-            return comment;
-        }
+            public String getMsg() {
+                return msg;
+            }
 
-        public void setComment(String comment) {
-            this.comment = comment;
+            public void setMsg(String msg) {
+                this.msg = msg;
+            }
         }
     }
 }

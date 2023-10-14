@@ -55,11 +55,11 @@
             android:exported="true" />
 
 
-<!--        <activity-->
-<!--            android:name="com.mcz.douyin.activitys.MainActivity"-->
-<!--            android:launchMode="singleTop"></activity>-->
         <activity
             android:name="com.mcz.douyin.activitys.MainActivity"
+            android:launchMode="singleTop"></activity>
+        <activity
+            android:name="com.mcz.douyin.ui.WelcomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

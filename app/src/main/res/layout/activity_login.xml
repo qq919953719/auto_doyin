@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="小孟自动化系统欢迎您的使用"
+        android:text="小崔自动化系统欢迎您的使用"
         android:textColor="#03DAC5"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -31,7 +31,7 @@
         android:layout_marginTop="96dp"
         android:background="@drawable/edt_login_bg"
         android:hint="@string/prompt_email"
-        android:inputType="phone"
+        android:inputType="text"
         android:padding="15dp"
         android:selectAllOnFocus="true"
         android:textColor="#ffffff"
@@ -40,19 +40,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/btn_getvcode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
-        android:background="@color/green"
-        android:inputType="number"
-        android:padding="10dp"
-        android:text="获取验证码"
-        android:textColor="#ffffff"
-        app:layout_constraintBottom_toBottomOf="@+id/username"
-        app:layout_constraintRight_toRightOf="@id/username"
-        app:layout_constraintTop_toTopOf="@+id/username" />
+
 
     <EditText
         android:id="@+id/password"

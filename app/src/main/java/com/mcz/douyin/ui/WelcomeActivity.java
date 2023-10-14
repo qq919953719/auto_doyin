@@ -17,7 +17,7 @@ import com.mcz.douyin.util.Constant;
 
 public class WelcomeActivity extends AppCompatActivity {
     ActivityWelcomeBinding binding;
-    private static final int MSG_UPDATE_TIME = 1;
+    private static final int MSG_UPDATE_TIME = 3000;
     private int countTime = 0;
     private Handler mHandler = new Handler() {
         @Override
