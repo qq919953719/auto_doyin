@@ -64,11 +64,11 @@ public class FunctionActivity extends AppCompatActivity {
 //        getAutoData();
 //        getAutoFollowData();
         runBtn = findViewById(R.id.runBtn);
-        binding.btnRefresh.setOnClickListener(new View.OnClickListener() {
+        binding.btnClose.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-                getAutoData();
+                TaskDemo.scriptStart = false;
             }
         });
         mHandler.postDelayed(mRunnable, delayTime);
@@ -121,7 +121,8 @@ public class FunctionActivity extends AppCompatActivity {
 //                    itemDemo.startAutoParenting(doyinBean);
 //                }
 
-
+                TaskDemo.scriptStart = true;
+                TaskDemo.videoNum = 0;
                 TaskDemo demo = new TaskDemo();
                 demo.startAutoParenting(myBean);
             }

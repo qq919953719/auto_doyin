@@ -29,8 +29,11 @@ import java.util.List;
 import java.util.Random;
 
 public class TaskDemo extends UiSelector {
+    public static boolean scriptStart = true;
     private AutoDataBean autoDataBean;
     private AutoFollowDataBean autoFollowDataBean;
+
+    public static int videoNum = 0;
 
 
     /****************************************测试脚本***************************************************************************/
@@ -39,26 +42,28 @@ public class TaskDemo extends UiSelector {
     public void startAutoParenting(AutoDataBean bean) {
         this.autoDataBean = bean;
         //私信
-        sendMessage(bean);
+//        sendMessage(bean);
         /*************************/
 
         jumpApp("com.ss.android.ugc.aweme");
         printLogMsg("抖音打开成功");
         timeSleep(waitSixSecond);
         while (true) {
-            for (int num = 0; num < 1000000; num++) {
-
-                try {
-                    timeSleep(waitSixSecond);
-                    TaskItemDemo itemDemo = new TaskItemDemo();
-                    itemDemo.startAutoParenting(autoDataBean.getData().get(0));
-                } catch (Exception e) {
-                    backToDesktop();
-                    timeSleep(waitSixSecond);
-                    TaskItemDemo itemDemo = new TaskItemDemo();
-                    itemDemo.startAutoParenting(autoDataBean.getData().get(0));
-                    throw new RuntimeException(e);
-                }
+            if (!scriptStart) {
+                printLogMsg("已关闭脚本");
+                break;
+            }
+            try {
+                timeSleep(waitSixSecond);
+                TaskItemDemo itemDemo = new TaskItemDemo();
+                itemDemo.startAutoParenting(autoDataBean.getData().get(0));
+            } catch (Exception e) {
+                backToDesktop();
+                timeSleep(waitSixSecond);
+                TaskItemDemo itemDemo = new TaskItemDemo();
+                itemDemo.startAutoParenting(autoDataBean.getData().get(0));
+                throw new RuntimeException(e);
+            }
 
 //
 //
@@ -202,9 +207,6 @@ public class TaskDemo extends UiSelector {
 //                }
 
 
-            }
-            break;
-
         }
 
         printLogMsg("脚本之心完毕");
@@ -220,6 +222,10 @@ public class TaskDemo extends UiSelector {
         timeSleep(waitSixSecond);
         printLogMsg("开始执行私信操作");
         for (AutoDataBean.DataDTO doyinBean : bean.getData()) {
+            if (!scriptStart) {
+                printLogMsg("已关闭脚本");
+                break;
+            }
             if (className("Button").text("拒绝").exists()) {
                 //关闭通讯录
                 className("Button").text("拒绝").findOne().click();

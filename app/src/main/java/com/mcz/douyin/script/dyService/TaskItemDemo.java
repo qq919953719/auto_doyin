@@ -15,6 +15,8 @@ import static com.mcz.douyin.node.AccUtils.printLogMsg;
 import static com.mcz.douyin.node.AccUtils.swipe;
 import static com.mcz.douyin.node.AccUtils.timeSleep;
 import static com.mcz.douyin.node.AccUtils.viewVideo;
+import static com.mcz.douyin.script.TaskDemo.scriptStart;
+import static com.mcz.douyin.script.TaskDemo.videoNum;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -43,11 +45,12 @@ public class TaskItemDemo extends UiSelector {
     public void startAutoParenting(AutoDataBean.DataDTO bean) {
         //养号
         /*************************/
+        videoNum++;
         jumpApp("com.ss.android.ugc.aweme");
         printLogMsg("抖音打开成功");
         timeSleep(waitSixSecond);
         printLogMsg("开始执行养号操作");
-        printLogMsg("刷" + bean.getId() + "个视频，点掉弹窗");
+        printLogMsg("刷" + videoNum + "个视频，点掉弹窗");
         text("我知道了").findOne().click();
         timeSleep(waitOneSecond);
         text("关闭").findOne().click();
