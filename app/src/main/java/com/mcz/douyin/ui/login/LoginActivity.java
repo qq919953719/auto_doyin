@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                 VcodeBean bean = JSON.parseObject(jsonObject.toString(), VcodeBean.class);
                 if (bean.getCode() == 200) {
                     SPUtils.getInstance().put(Constant.TOKEN, bean.getData().getToken());
+                    SPUtils.getInstance().put(Constant.ACCOUNT, phone);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();

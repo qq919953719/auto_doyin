@@ -1,6 +1,7 @@
 package com.mcz.douyin.ui;
 
 import static com.mcz.douyin.config.GlobalVariableHolder.waitThreeSecond;
+import static com.mcz.douyin.node.AccUtils.backToDesktop;
 import static com.mcz.douyin.node.AccUtils.home;
 import static com.mcz.douyin.node.AccUtils.printLogMsg;
 import static com.mcz.douyin.node.AccUtils.timeSleep;
@@ -19,6 +20,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.fastjson.JSON;
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.mcz.douyin.R;
@@ -57,6 +59,7 @@ public class FunctionActivity extends AppCompatActivity {
 //        getAutoData();
 //        getAutoFollowData();
         runBtn = findViewById(R.id.runBtn);
+        binding.tvDeviceInfo.setText("当前账号:" + SPUtils.getInstance().getString(Constant.ACCOUNT, "") + "\n当前设备id:" + DeviceUtils.getUniqueDeviceId());
         binding.btnClose.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -128,6 +131,9 @@ public class FunctionActivity extends AppCompatActivity {
                     Log.i(TAG, "runMyUiautomator: ");
                     Toast.makeText(FunctionActivity.this, "start run", Toast.LENGTH_SHORT).show();
                 } else {
+                    TaskDemo.scriptStart = false;
+                    backToDesktop();
+                    backToDesktop();
                     Intent intent = new Intent(FunctionActivity.this, LoginActivity.class);
                     startActivity(intent);
                     Toast.makeText(FunctionActivity.this, bean.getMsg(), Toast.LENGTH_SHORT).show();

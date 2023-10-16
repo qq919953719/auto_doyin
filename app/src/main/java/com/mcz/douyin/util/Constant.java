@@ -10,4 +10,6 @@ package com.mcz.douyin.util;
 
 public class Constant {
     public static final String TOKEN = "TOKEN";
+    public static final String ACCOUNT = "ACCOUNT";
+    public static final String DEVICEID = "DEVICEID";
 }
