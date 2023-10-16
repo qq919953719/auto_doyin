@@ -94,8 +94,40 @@ public class AutoDataBean {
             private String account;
             @JSONField(name = "msgOn")
             private String msgOn;
+            @JSONField(name = "zanProbability")
+            private int zanProbability = 100;
+            @JSONField(name = "collectProbability")
+            private int collectProbability = 100;
+
+            public int getZanProbability() {
+                return zanProbability;
+            }
+
+            public void setZanProbability(int zanProbability) {
+                this.zanProbability = zanProbability;
+            }
+
+            public int getCollectProbability() {
+                return collectProbability;
+            }
+
+            public void setCollectProbability(int collectProbability) {
+                this.collectProbability = collectProbability;
+            }
+
+            public int getCommentProbability() {
+                return commentProbability;
+            }
+
+            public void setCommentProbability(int commentProbability) {
+                this.commentProbability = commentProbability;
+            }
+
+            @JSONField(name = "commentProbability")
+            private int commentProbability = 100;
             @JSONField(name = "growUpOn")
             private String growUpOn;
+
 
             public String getDeviceID() {
                 return deviceID;

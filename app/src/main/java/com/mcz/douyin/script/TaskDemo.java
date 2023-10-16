@@ -262,6 +262,8 @@ public class TaskDemo extends UiSelector {
                 timeSleep(waitOneSecond);
             }
         }
+        printLogMsg("脚本执行完毕");
+        scriptStart = false;
     }
 
 

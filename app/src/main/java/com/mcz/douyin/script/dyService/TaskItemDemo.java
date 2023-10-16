@@ -71,7 +71,7 @@ public class TaskItemDemo extends UiSelector {
         if (className("LinearLayout").descContains("未点赞").exists()) {
             printLogMsg("当前播放为短视频");
             int random = new Random().nextInt(100);
-            if (random > 10) {
+            if (random < bean.getDevice().getCollectProbability()) {
                 if (className("LinearLayout").descContains("未选中").exists()) {
                     className("LinearLayout").descContains("未选中").findOne().click();
 //                            click(987, 1246);
@@ -79,27 +79,35 @@ public class TaskItemDemo extends UiSelector {
                     timeSleep(waitTwoSecond);
                 }
 
-            }
+            } else {
+                printLogMsg("当前收藏概率为：" + bean.getDevice().getCollectProbability() + "%\n此次不收藏");
 
-            if (random > 10) {
+            }
+            int randomZan = new Random().nextInt(100);
+            if (randomZan < bean.getDevice().getZanProbability()) {
                 if (className("LinearLayout").descContains("未点赞").exists()) {
                     //首页点赞
                     className("LinearLayout").descContains("未点赞").findOne().click();
                     printLogMsg("点击点赞按钮成功");
                 }
+            } else {
+                printLogMsg("当前点赞概率为：" + bean.getDevice().getZanProbability() + "%\n此次不点赞");
             }
             timeSleep(waitTwoSecond);
-
-            if (random > 10) {
+            int randomCollect = new Random().nextInt(100);
+            if (randomCollect < bean.getDevice().getCollectProbability()) {
                 if (className("LinearLayout").descContains("未选中").exists()) {
                     className("LinearLayout").descContains("未选中").findOne().clickPoint();
                     printLogMsg("点击收藏按钮成功");
                 }
 
+            } else {
+                printLogMsg("当前收藏概率为：" + bean.getDevice().getCollectProbability() + "%\n此次不收藏");
             }
             timeSleep(waitThreeSecond);
+            int randomCOmment = new Random().nextInt(100);
 
-            if (random > 10) {
+            if (randomCOmment < bean.getDevice().getCommentProbability()) {
                 //            //首页评论标签
                 className("LinearLayout").descContains("评论").findOne().click();
                 printLogMsg("点击评论按钮成功");
@@ -179,8 +187,9 @@ public class TaskItemDemo extends UiSelector {
                 printLogMsg("再次返回保底！");
                 swipe((int) (mWidth / 2), mHeight - 480, (int) (mWidth / 2) + 80, 200, 450);
                 timeSleep(waitFiveSecond + new Random().nextInt(waitFiveSecond));
+            } else {
+                printLogMsg("当前收藏概率为：" + bean.getDevice().getCollectProbability() + "%\n此次不收藏");
             }
-
 
         } else {
             printLogMsg("当前播放为直播");
