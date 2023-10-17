@@ -9,6 +9,7 @@ import static com.mcz.douyin.config.GlobalVariableHolder.waitSixSecond;
 import static com.mcz.douyin.config.GlobalVariableHolder.waitThreeSecond;
 import static com.mcz.douyin.config.GlobalVariableHolder.waitTwoSecond;
 import static com.mcz.douyin.node.AccUtils.back;
+import static com.mcz.douyin.node.AccUtils.backToDesktop;
 import static com.mcz.douyin.node.AccUtils.click;
 import static com.mcz.douyin.node.AccUtils.printLogMsg;
 import static com.mcz.douyin.node.AccUtils.swipe;
@@ -175,8 +176,14 @@ public class TaskItemDemo extends UiSelector {
             } else {
                 printLogMsg("当前评论概率为：" + getRangeNum(bean, "4") + "%\n此次不评论");
             }
-
+            isVideo = 0;
         } else {
+            isVideo++;
+            if (isVideo > 5) {
+                isVideo = 0;
+                backToDesktop();
+                timeSleep(waitSixSecond);
+            }
             printLogMsg("当前播放为直播");
         }
 
@@ -205,4 +212,6 @@ public class TaskItemDemo extends UiSelector {
         }
         return 100;
     }
+
+    public static int isVideo = 0;
 }
