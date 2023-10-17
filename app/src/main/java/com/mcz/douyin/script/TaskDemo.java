@@ -67,7 +67,6 @@ public class TaskDemo extends UiSelector {
 //                timeSleep(waitSixSecond);
 //                TaskItemDemo itemDemo = new TaskItemDemo();
 //                itemDemo.startAutoParenting(autoDataBean.getData());
-                throw new RuntimeException(e);
             }
 
             scriptGrowthRunning = false;
@@ -88,7 +87,6 @@ public class TaskDemo extends UiSelector {
                 backToDesktop();
                 printLogMsg("私信异常，等待重启启动");
                 scriptMessageRunning = false;
-                throw new RuntimeException(e);
             }
             printLogMsg("私信脚本执行完毕");
             scriptMessageRunning = false;
