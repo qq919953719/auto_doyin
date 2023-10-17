@@ -12,4 +12,5 @@ public class Constant {
     public static final String TOKEN = "TOKEN";
     public static final String ACCOUNT = "ACCOUNT";
     public static final String DEVICEID = "DEVICEID";
+    public static final String PWD = "PWD";
 }

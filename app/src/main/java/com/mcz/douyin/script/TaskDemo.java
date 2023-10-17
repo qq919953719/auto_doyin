@@ -29,7 +29,10 @@ import java.util.List;
 import java.util.Random;
 
 public class TaskDemo extends UiSelector {
-    public static boolean scriptStart = false;
+    public static boolean scriptGrowthStart = false;
+    public static boolean scriptMessageStart = false;
+    public static boolean scriptGrowthRunning = false;
+    public static boolean scriptMessageRunning = false;
     private AutoDataBean autoDataBean;
     private AutoFollowDataBean autoFollowDataBean;
 
@@ -39,20 +42,19 @@ public class TaskDemo extends UiSelector {
     /****************************************测试脚本***************************************************************************/
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void startAutoParenting(AutoDataBean bean) {
-        this.autoDataBean = bean;
-        //私信
-        sendMessage(bean);
+    public void startAutoGrowthOn(AutoDataBean bean) {
+        autoDataBean = bean;
         /*************************/
-
         jumpApp("com.ss.android.ugc.aweme");
         printLogMsg("抖音打开成功");
-        timeSleep(waitSixSecond);
         while (true) {
-            if (!scriptStart) {
-                printLogMsg("已关闭脚本");
+            if (!scriptGrowthStart) {
+                scriptGrowthRunning = false;
+                scriptGrowthStart = false;
+                printLogMsg("已关闭脚本养号功能");
                 break;
             }
+            scriptGrowthRunning = true;
             try {
                 timeSleep(waitSixSecond);
                 TaskItemDemo itemDemo = new TaskItemDemo();
@@ -64,9 +66,29 @@ public class TaskDemo extends UiSelector {
                 itemDemo.startAutoParenting(autoDataBean.getData());
                 throw new RuntimeException(e);
             }
+
+            scriptGrowthRunning = false;
         }
 
-        printLogMsg("脚本之心完毕");
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void startAutoParenting(AutoDataBean bean) {
+        this.autoDataBean = bean;
+
+        if (scriptMessageStart) {
+            //私信
+            sendMessage(bean);
+            printLogMsg("私信脚本执行完毕");
+            scriptMessageRunning = false;
+            return;
+        } else {
+            scriptMessageRunning = false;
+            scriptMessageStart = false;
+            printLogMsg("已关闭");
+            return;
+        }
 
     }
 
@@ -79,8 +101,10 @@ public class TaskDemo extends UiSelector {
         timeSleep(waitSixSecond);
         printLogMsg("开始执行私信操作");
         for (AutoDataBean.DataDTO.DeviceDTO doyinBean : bean.getData().getTargetUserList()) {
-            if (!scriptStart) {
+            scriptMessageRunning = true;
+            if (!scriptMessageStart) {
                 printLogMsg("已关闭脚本");
+                scriptMessageRunning = false;
                 break;
             }
             if (className("Button").text("拒绝").exists()) {
@@ -97,16 +121,12 @@ public class TaskDemo extends UiSelector {
             timeSleep(waitTwoSecond);
             int loopTime = 0;
             while (true) {
-                if (className("TextView").desc("首页，按钮").exists()) {
-                    className("TextView").desc("首页，按钮").findOne().click();
-                    printLogMsg("点击首页按钮成功");
-                    break;
-                }
                 if (className("ImageView").desc("关闭").exists()) {
                     className("ImageView").desc("关闭").findOne().click();
                 }
+                timeSleep(500);
                 loopTime++;
-                if (loopTime > 20) {
+                if (loopTime > 10) {
                     printLogMsg("循环次数过多，已停止查询");
                     break;
                 }
@@ -125,6 +145,7 @@ public class TaskDemo extends UiSelector {
                     printLogMsg("点击搜索按钮Button成功");
                     break;
                 }
+                timeSleep(500);
                 loopTime++;
                 if (loopTime > 20) {
                     printLogMsg("循环次数过多，已停止查询");
@@ -147,6 +168,7 @@ public class TaskDemo extends UiSelector {
                     printLogMsg("点击用户按钮成功");
                     break;
                 }
+                timeSleep(500);
                 loopTime++;
                 if (loopTime > 20) {
                     printLogMsg("循环次数过多，已停止查询");
@@ -170,14 +192,26 @@ public class TaskDemo extends UiSelector {
             printLogMsg("点击搜索到的第一个用户头像成功");
             timeSleep(waitSixSecond);
 
-
-//            while (true){
-            if (className("TextView").text("关注").exists()) {
+            loopTime = 0;
+            while (true) {
+                if (className("TextView").text("关注").exists()) {
 //                className("TextView").text("关注").findOne().click();
-                id("qym").className("TextView").findOne().click();
-                printLogMsg("点击关注按钮成功");
+                    id("q1y").className("TextView").findOne().click();
+                    printLogMsg("点击关注按钮成功");
+                    break;
+                }
+                timeSleep(500);
+                loopTime++;
+                if (loopTime > 10) {
+                    back();
+                    timeSleep(waitTwoSecond);
+                    if (className("TextView").text("关注").exists()) {
+                        id("q1y").className("TextView").findOne().click();
+                        printLogMsg("点击关注按钮成功");
+                    }
+                    break;
+                }
             }
-//            }
 
 
             timeSleep(waitSixSecond);
@@ -189,6 +223,7 @@ public class TaskDemo extends UiSelector {
                     break;
                 }
                 loopTime++;
+                timeSleep(500);
                 if (loopTime > 20) {
                     printLogMsg("循环次数过多，已停止查询");
                     break;
@@ -260,10 +295,11 @@ public class TaskDemo extends UiSelector {
                 printLogMsg("执行第" + i + "次返回");
                 back();
                 timeSleep(waitOneSecond);
+                scriptMessageRunning = false;
             }
         }
         printLogMsg("脚本执行完毕");
-        scriptStart = false;
+        scriptMessageRunning = false;
     }
 
 

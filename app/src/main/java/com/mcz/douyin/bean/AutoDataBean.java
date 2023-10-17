@@ -45,6 +45,8 @@ public class AutoDataBean {
         this.data = data;
     }
 
+
+
     public static class DataDTO {
         @JSONField(name = "device")
         private DeviceDTO device;
@@ -52,6 +54,10 @@ public class AutoDataBean {
         private List<MsgListDTO> msgList;
         @JSONField(name = "commentList")
         private List<MsgListDTO> commentList;
+        @JSONField(name = "configList")
+        private List<ConfigListDTO> configList;
+
+
         @JSONField(name = "targetUserList")
         private List<DeviceDTO> targetUserList;
 
@@ -79,6 +85,15 @@ public class AutoDataBean {
             this.commentList = commentList;
         }
 
+        public List<ConfigListDTO> getConfigList() {
+            return configList;
+        }
+
+        public void setConfigList(List<ConfigListDTO> configList) {
+            this.configList = configList;
+        }
+
+
         public List<DeviceDTO> getTargetUserList() {
             return targetUserList;
         }
@@ -87,44 +102,44 @@ public class AutoDataBean {
             this.targetUserList = targetUserList;
         }
 
-        public static class DeviceDTO {
+        public class DeviceDTO {
             @JSONField(name = "deviceID")
             private String deviceID;
             @JSONField(name = "account")
             private String account;
             @JSONField(name = "msgOn")
             private String msgOn;
-            @JSONField(name = "zanProbability")
-            private int zanProbability = 100;
-            @JSONField(name = "collectProbability")
-            private int collectProbability = 100;
+//            @JSONField(name = "zanProbability")
+//            private int zanProbability = 100;
+//            @JSONField(name = "collectProbability")
+//            private int collectProbability = 100;
 
-            public int getZanProbability() {
-                return zanProbability;
-            }
+//            public int getZanProbability() {
+//                return getRangeNum("2");
+//            }
 
-            public void setZanProbability(int zanProbability) {
-                this.zanProbability = zanProbability;
-            }
+//            public void setZanProbability(int zanProbability) {
+//                this.zanProbability = zanProbability;
+//            }
 
-            public int getCollectProbability() {
-                return collectProbability;
-            }
+//            public int getCollectProbability() {
+//                return getRangeNum("3");
+//            }
 
-            public void setCollectProbability(int collectProbability) {
-                this.collectProbability = collectProbability;
-            }
+//            public void setCollectProbability(int collectProbability) {
+//                this.collectProbability = collectProbability;
+//            }
 
-            public int getCommentProbability() {
-                return commentProbability;
-            }
+//            public int getCommentProbability() {
+//                return getRangeNum("4");
+//            }
 
-            public void setCommentProbability(int commentProbability) {
-                this.commentProbability = commentProbability;
-            }
+//            public void setCommentProbability(int commentProbability) {
+//                this.commentProbability = commentProbability;
+//            }
 
-            @JSONField(name = "commentProbability")
-            private int commentProbability = 100;
+//            @JSONField(name = "commentProbability")
+//            private int commentProbability = 100;
             @JSONField(name = "growUpOn")
             private String growUpOn;
 
@@ -172,6 +187,30 @@ public class AutoDataBean {
 
             public void setMsg(String msg) {
                 this.msg = msg;
+            }
+        }
+
+
+        public static class ConfigListDTO {
+            @JSONField(name = "type")
+            private String type;
+            @JSONField(name = "rangeNum")
+            private int rangeNum;
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public int getRangeNum() {
+                return rangeNum;
+            }
+
+            public void setRangeNum(int rangeNum) {
+                this.rangeNum = rangeNum;
             }
         }
     }

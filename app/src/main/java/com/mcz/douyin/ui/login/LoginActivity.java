@@ -37,18 +37,20 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.username.setText(SPUtils.getInstance().getString(Constant.ACCOUNT, ""));
+        binding.password.setText(SPUtils.getInstance().getString(Constant.PWD, ""));
         manager = OkManager.getInstance();
         binding.btnLogin222.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (binding.username.getText().toString().trim().length() != 11) {
-//                    Toast.makeText(LoginActivity.this, "请您输入正确的手机好吗", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                if (binding.password.getText().toString().trim().length() == 0) {
-//                    Toast.makeText(LoginActivity.this, "请您输入密码", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                if (binding.username.getText().toString().trim().length() == 0) {
+                    Toast.makeText(LoginActivity.this, "请您输入账号", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (binding.password.getText().toString().trim().length() == 0) {
+                    Toast.makeText(LoginActivity.this, "请您输入密码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 loginAutoSystem(binding.username.getText().toString().trim(), binding.password.getText().toString().trim());
 
             }
@@ -72,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (bean.getCode() == 200) {
                     SPUtils.getInstance().put(Constant.TOKEN, bean.getData().getToken());
                     SPUtils.getInstance().put(Constant.ACCOUNT, phone);
+                    SPUtils.getInstance().put(Constant.PWD, pwd);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();

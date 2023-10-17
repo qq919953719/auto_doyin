@@ -10,12 +10,10 @@ import static com.mcz.douyin.config.GlobalVariableHolder.waitThreeSecond;
 import static com.mcz.douyin.config.GlobalVariableHolder.waitTwoSecond;
 import static com.mcz.douyin.node.AccUtils.back;
 import static com.mcz.douyin.node.AccUtils.click;
-import static com.mcz.douyin.node.AccUtils.home;
 import static com.mcz.douyin.node.AccUtils.printLogMsg;
 import static com.mcz.douyin.node.AccUtils.swipe;
 import static com.mcz.douyin.node.AccUtils.timeSleep;
-import static com.mcz.douyin.node.AccUtils.viewVideo;
-import static com.mcz.douyin.script.TaskDemo.scriptStart;
+
 import static com.mcz.douyin.script.TaskDemo.videoNum;
 
 import android.content.Intent;
@@ -27,6 +25,7 @@ import androidx.annotation.RequiresApi;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.mcz.douyin.bean.AutoDataBean;
 import com.mcz.douyin.node.UiSelector;
+import com.mcz.douyin.script.TaskDemo;
 
 import java.util.Random;
 
@@ -47,7 +46,7 @@ public class TaskItemDemo extends UiSelector {
         /*************************/
         videoNum++;
         jumpApp("com.ss.android.ugc.aweme");
-        printLogMsg("抖音打开成功");
+        printLogMsg("抖音打开成功" + videoNum);
         timeSleep(waitSixSecond);
         printLogMsg("开始执行养号操作");
         printLogMsg("刷" + videoNum + "个视频，点掉弹窗");
@@ -71,7 +70,7 @@ public class TaskItemDemo extends UiSelector {
         if (className("LinearLayout").descContains("未点赞").exists()) {
             printLogMsg("当前播放为短视频");
             int random = new Random().nextInt(100);
-            if (random < bean.getDevice().getCollectProbability()) {
+            if (random < getRangeNum(bean, "3")) {
                 if (className("LinearLayout").descContains("未选中").exists()) {
                     className("LinearLayout").descContains("未选中").findOne().click();
 //                            click(987, 1246);
@@ -80,34 +79,23 @@ public class TaskItemDemo extends UiSelector {
                 }
 
             } else {
-                printLogMsg("当前收藏概率为：" + bean.getDevice().getCollectProbability() + "%\n此次不收藏");
+                printLogMsg("当前收藏概率为：" + getRangeNum(bean, "3") + "%\n此次不收藏");
 
             }
             int randomZan = new Random().nextInt(100);
-            if (randomZan < bean.getDevice().getZanProbability()) {
+            if (randomZan < getRangeNum(bean, "2")) {
                 if (className("LinearLayout").descContains("未点赞").exists()) {
                     //首页点赞
                     className("LinearLayout").descContains("未点赞").findOne().click();
                     printLogMsg("点击点赞按钮成功");
                 }
             } else {
-                printLogMsg("当前点赞概率为：" + bean.getDevice().getZanProbability() + "%\n此次不点赞");
+                printLogMsg("当前点赞概率为：" + getRangeNum(bean, "2") + "%\n此次不点赞");
             }
             timeSleep(waitTwoSecond);
-            int randomCollect = new Random().nextInt(100);
-            if (randomCollect < bean.getDevice().getCollectProbability()) {
-                if (className("LinearLayout").descContains("未选中").exists()) {
-                    className("LinearLayout").descContains("未选中").findOne().clickPoint();
-                    printLogMsg("点击收藏按钮成功");
-                }
-
-            } else {
-                printLogMsg("当前收藏概率为：" + bean.getDevice().getCollectProbability() + "%\n此次不收藏");
-            }
-            timeSleep(waitThreeSecond);
             int randomCOmment = new Random().nextInt(100);
 
-            if (randomCOmment < bean.getDevice().getCommentProbability()) {
+            if (randomCOmment < getRangeNum(bean, "4")) {
                 //            //首页评论标签
                 className("LinearLayout").descContains("评论").findOne().click();
                 printLogMsg("点击评论按钮成功");
@@ -183,25 +171,19 @@ public class TaskItemDemo extends UiSelector {
                 printLogMsg("关闭评论列表成功");
                 timeSleep(waitThreeSecond);
                 back();
-                timeSleep(waitThreeSecond);
-                printLogMsg("再次返回保底！");
-                swipe((int) (mWidth / 2), mHeight - 480, (int) (mWidth / 2) + 80, 200, 450);
-                timeSleep(waitFiveSecond + new Random().nextInt(waitFiveSecond));
+
             } else {
-                printLogMsg("当前收藏概率为：" + bean.getDevice().getCollectProbability() + "%\n此次不收藏");
+                printLogMsg("当前评论概率为：" + getRangeNum(bean, "4") + "%\n此次不评论");
             }
 
         } else {
             printLogMsg("当前播放为直播");
-
-            swipe((int) (mWidth / 2), mHeight - 480, (int) (mWidth / 2) + 80, 200, 450);
-            timeSleep(waitFiveSecond + new Random().nextInt(waitFiveSecond));
         }
 
-
-        printLogMsg("脚本之心完毕");
-
-
+        timeSleep(waitThreeSecond);
+        printLogMsg("再次返回保底！");
+        swipe((int) (mWidth / 2), mHeight - 480, (int) (mWidth / 2) + 80, 200, 450);
+        timeSleep(waitFiveSecond + new Random().nextInt(waitFiveSecond));
     }
 
     public void jumpApp(String packageName) {
@@ -210,4 +192,17 @@ public class TaskItemDemo extends UiSelector {
         ActivityUtils.getTopActivity().startActivity(it);
     }
 
+    /**
+     * @param type 1视频间隔 2点赞概率 3收藏概率  4评论概率  5点赞评论概率  6搜索热搜视频概率
+     * @return
+     */
+    public int getRangeNum(AutoDataBean.DataDTO data, String type) {
+        for (AutoDataBean.DataDTO.ConfigListDTO config : data.getConfigList()) {
+            if (config.getType().equals(type)) {
+                return config.getRangeNum();
+            }
+
+        }
+        return 100;
+    }
 }
