@@ -304,8 +304,9 @@ public class TaskDemo extends UiSelector {
                 printLogMsg("执行第" + i + "次返回");
                 back();
                 timeSleep(waitOneSecond);
-                scriptMessageRunning = false;
             }
+            scriptMessageRunning = false;
+
         }
         printLogMsg("脚本执行完毕");
         scriptMessageRunning = false;
