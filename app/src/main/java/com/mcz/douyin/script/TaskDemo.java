@@ -61,10 +61,12 @@ public class TaskDemo extends UiSelector {
                 TaskItemDemo itemDemo = new TaskItemDemo();
                 itemDemo.startAutoParenting(autoDataBean.getData());
             } catch (Exception e) {
+                scriptGrowthRunning = false;
+                printLogMsg("养号异常，等待重启启动");
                 backToDesktop();
-                timeSleep(waitSixSecond);
-                TaskItemDemo itemDemo = new TaskItemDemo();
-                itemDemo.startAutoParenting(autoDataBean.getData());
+//                timeSleep(waitSixSecond);
+//                TaskItemDemo itemDemo = new TaskItemDemo();
+//                itemDemo.startAutoParenting(autoDataBean.getData());
                 throw new RuntimeException(e);
             }
 
@@ -80,7 +82,14 @@ public class TaskDemo extends UiSelector {
 
         if (scriptMessageStart) {
             //私信
-            sendMessage(bean);
+            try {
+                sendMessage(bean);
+            } catch (Exception e) {
+                backToDesktop();
+                printLogMsg("私信异常，等待重启启动");
+                scriptMessageRunning = false;
+                throw new RuntimeException(e);
+            }
             printLogMsg("私信脚本执行完毕");
             scriptMessageRunning = false;
             return;
