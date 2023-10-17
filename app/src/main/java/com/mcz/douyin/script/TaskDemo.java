@@ -45,6 +45,7 @@ public class TaskDemo extends UiSelector {
     public void startAutoGrowthOn(AutoDataBean bean) {
         autoDataBean = bean;
         /*************************/
+        timeSleep(waitThreeSecond);
         jumpApp("com.ss.android.ugc.aweme");
         printLogMsg("抖音打开成功");
         while (true) {
@@ -95,6 +96,7 @@ public class TaskDemo extends UiSelector {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void sendMessage(AutoDataBean bean) {
+        timeSleep(waitThreeSecond);
         //私信
         jumpApp("com.ss.android.ugc.aweme");
         printLogMsg("抖音打开成功");
