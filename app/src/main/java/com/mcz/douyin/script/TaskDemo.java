@@ -43,6 +43,7 @@ public class TaskDemo extends UiSelector {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void startAutoGrowthOn(AutoDataBean bean) {
+        scriptGrowthRunning = true;
         autoDataBean = bean;
         /*************************/
         timeSleep(waitThreeSecond);
@@ -69,9 +70,8 @@ public class TaskDemo extends UiSelector {
 //                itemDemo.startAutoParenting(autoDataBean.getData());
             }
 
-            scriptGrowthRunning = false;
         }
-
+        scriptGrowthRunning = false;
 
     }
 
@@ -82,6 +82,7 @@ public class TaskDemo extends UiSelector {
         if (scriptMessageStart) {
             //私信
             try {
+                scriptMessageRunning = true;
                 sendMessage(bean);
             } catch (Exception e) {
                 backToDesktop();
