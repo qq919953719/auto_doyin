@@ -203,6 +203,9 @@ public class TaskDemo extends UiSelector {
 
             loopTime = 0;
             while (true) {
+                if (className("ImageView").desc("关闭").exists()) {
+                    className("ImageView").desc("关闭").findOne().click();
+                }
                 if (className("TextView").text("关注").exists()) {
 //                className("TextView").text("关注").findOne().click();
                     id("q1y").className("TextView").findOne().click();
@@ -305,11 +308,10 @@ public class TaskDemo extends UiSelector {
                 back();
                 timeSleep(waitOneSecond);
             }
-            scriptMessageRunning = false;
+
 
         }
         printLogMsg("脚本执行完毕");
-        scriptMessageRunning = false;
     }
 
 
