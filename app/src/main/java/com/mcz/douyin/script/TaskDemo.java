@@ -162,12 +162,13 @@ public class TaskDemo extends UiSelector {
                     break;
                 }
             }
+            timeSleep(waitSixSecond);
             className("android.widget.EditText").findOne().setText(doyinBean.getAccount());
             printLogMsg("输入抖音账号抖音号：" + doyinBean.getAccount() + "成功");
-            timeSleep(waitTwoSecond);
+            timeSleep(waitThreeSecond);
             click(987, 115);
             printLogMsg("点击搜索按钮成功");
-            timeSleep(waitThreeSecond);
+            timeSleep(waitSixSecond);
 //            click(291, 241);
 //            printLogMsg("点击搜索结果第一个");
 //            timeSleep(waitTwoSecond);
