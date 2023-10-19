@@ -165,7 +165,7 @@ public class TaskDemo extends UiSelector {
 
 
             timeSleep(waitTwoSecond);
-            className("android.widget.EditText").findOne().setText("6mmmm");
+            className("android.widget.EditText").findOne().setText(doyinBean.getAccount());
             printLogMsg("输入抖音账号抖音号：" + doyinBean.getAccount() + "成功");
             timeSleep(waitTwoSecond);
             click(987, 115);
