@@ -166,11 +166,14 @@ public class TaskDemo extends UiSelector {
 
             timeSleep(waitTwoSecond);
             className("android.widget.EditText").findOne().setText(doyinBean.getAccount());
-            printLogMsg("搜索抖音号：" + doyinBean.getAccount() + "成功");
+            printLogMsg("输入抖音账号抖音号：" + doyinBean.getAccount() + "成功");
             timeSleep(waitTwoSecond);
-            click(291, 241);
-            printLogMsg("点击搜索结果第一个");
-            timeSleep(waitTwoSecond);
+            click(987, 115);
+            printLogMsg("点击搜索按钮成功");
+            timeSleep(waitThreeSecond);
+//            click(291, 241);
+//            printLogMsg("点击搜索结果第一个");
+//            timeSleep(waitTwoSecond);
             loopTime = 0;
             while (true) {
                 if (className("Button").text("用户").exists()) {
@@ -228,6 +231,13 @@ public class TaskDemo extends UiSelector {
 
 
             timeSleep(waitSixSecond);
+
+            if (className("Button").text("知道了").exists()) {
+                id("button1").className("Button").text("知道了").findOne().click();
+                timeSleep(waitTwoSecond);
+            }
+
+
             loopTime = 0;
             while (true) {
                 if (className("TextView").desc("私信").exists()) {
@@ -307,7 +317,7 @@ public class TaskDemo extends UiSelector {
             for (int i = 0; i < 5; i++) {
                 printLogMsg("执行第" + i + "次返回");
                 back();
-                timeSleep(waitOneSecond);
+                timeSleep(waitTwoSecond);
             }
 
 
