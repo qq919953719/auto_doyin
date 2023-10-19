@@ -162,9 +162,6 @@ public class TaskDemo extends UiSelector {
                     break;
                 }
             }
-
-
-            timeSleep(waitTwoSecond);
             className("android.widget.EditText").findOne().setText(doyinBean.getAccount());
             printLogMsg("输入抖音账号抖音号：" + doyinBean.getAccount() + "成功");
             timeSleep(waitTwoSecond);
@@ -236,7 +233,7 @@ public class TaskDemo extends UiSelector {
                 id("button1").className("Button").text("知道了").findOne().click();
                 timeSleep(waitTwoSecond);
             }
-
+            boolean canMessage = true;
 
             loopTime = 0;
             while (true) {
@@ -255,9 +252,12 @@ public class TaskDemo extends UiSelector {
                         back();
                         timeSleep(waitTwoSecond);
                     }
-
+                    canMessage = false;
                     break;
                 }
+            }
+            if (!canMessage) {
+                break;
             }
 
             timeSleep(waitSixSecond);
