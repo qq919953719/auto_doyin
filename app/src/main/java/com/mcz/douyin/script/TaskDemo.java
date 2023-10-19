@@ -327,6 +327,15 @@ public class TaskDemo extends UiSelector {
                 back();
                 timeSleep(waitTwoSecond);
             }
+            while (true) {
+                if (className("TextView").desc("首页，按钮").exists()) {
+                    printLogMsg("成功返回到首页，终止返回！");
+                    break;
+                }
+                back();
+                timeSleep(waitOneSecond);
+                jumpApp("com.ss.android.ugc.aweme");
+            }
 
 
         }
