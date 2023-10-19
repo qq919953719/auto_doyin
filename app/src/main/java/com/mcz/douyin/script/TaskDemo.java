@@ -165,7 +165,7 @@ public class TaskDemo extends UiSelector {
 
 
             timeSleep(waitTwoSecond);
-            className("android.widget.EditText").findOne().setText(doyinBean.getAccount());
+            className("android.widget.EditText").findOne().setText("6mmmm");
             printLogMsg("输入抖音账号抖音号：" + doyinBean.getAccount() + "成功");
             timeSleep(waitTwoSecond);
             click(987, 115);
@@ -249,6 +249,13 @@ public class TaskDemo extends UiSelector {
                 timeSleep(500);
                 if (loopTime > 20) {
                     printLogMsg("循环次数过多，已停止查询");
+                    printLogMsg("没有检测到私信按钮，即将返回到APP主页");
+                    for (int i = 0; i < 5; i++) {
+                        printLogMsg("执行第" + i + "次返回");
+                        back();
+                        timeSleep(waitTwoSecond);
+                    }
+
                     break;
                 }
             }
