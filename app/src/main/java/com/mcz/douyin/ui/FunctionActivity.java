@@ -46,7 +46,7 @@ public class FunctionActivity extends AppCompatActivity {
     private int delayTime = 60000;  //1分钟执行一次
     private static final String TAG = "MainActivity";
     private String loginAutoSystemUrl = "http://61.171.97.214:81/api/biz/client/deviceInfoClient";
-    private String onOffSystemUrl = "http://61.171.97.214:81/:81/api/biz/client/deviceInfoClientSwitch";
+    private String onOffSystemUrl = "http://61.171.97.214:81/api/biz/client/deviceInfoClientSwitch";
     ActivityFunctionBinding binding;
     Button runBtn;
 
