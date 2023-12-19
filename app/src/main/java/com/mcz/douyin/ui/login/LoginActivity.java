@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private OkManager manager;
     private OkHttpClient clients;
     private ActivityLoginBinding binding;
-    private String loginAutoSystemUrl = "http://www.xubeibei.icu:81/api/biz/client/login";
+    private String loginAutoSystemUrl = "http://61.171.97.214:81/api/biz/client/login";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
