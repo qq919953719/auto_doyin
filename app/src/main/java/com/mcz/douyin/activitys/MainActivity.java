@@ -99,28 +99,27 @@ public class MainActivity extends AppCompatActivity {
     BasePopupView popupView;
 
     private void mianze(String result, View view) {
-        popupView = new XPopup.Builder(this).isDestroyOnDismiss(true)
-//                        .isTouchThrough(true)
-//                        .dismissOnBackPressed(false)
-//                        .isViewMode(true)
-//                        .hasBlurBg(true)
-//                         .autoDismiss(false)
-//                        .popupAnimation(PopupAnimation.NoAnimation)
-                .asConfirm("免责条款", "本项目仅供学习、分享与交流，我们不保证内容的正确性，" + "禁止使用本项目进行商业化与违反法律法规的操作。下载试用后请 24 小时内删除，" + "因下载本站资源造成的损失，全部由使用者本人承担！根据 署名-非商业性使用-相同方式共享 (by-nc-sa) 许可协议规定，" + "只要他人在以原作品为基础创作的新作品上适用同一类型的许可协议，" + "并且在新作品发布的显著位置，注明原作者的姓名、来源及其采用的知识共享协议，与该作品在本网站的原发地址建立链接，" + "他人就可基于非商业目的对原作品重新编排、修改、节选或者本人的作品为基础进行创作和发布。" + "基于原作品创作的所有新作品都要适用同一类型的许可协议，因此适用该项协议， " + "对任何以他人原作为基础创作的作品自然同样都不得商业性用途。\n点击确定即代表您已同意本协议与声明！", "取消", "确定", new OnConfirmListener() {
-                    @Override
-                    public void onConfirm() {
-                        isAgreen = true;
-                        switchResult(result, view);
 
-                    }
-                }, new OnCancelListener() {
-                    @Override
-                    public void onCancel() {
-                        isAgreen = false;
-                        ToastUtils.showShort("您已拒绝本协议与声明，无法继续使用");
-                    }
-                }, false);
-        popupView.show();
+        isAgreen = true;
+        switchResult(result, view);
+
+//
+//        popupView = new XPopup.Builder(this).isDestroyOnDismiss(true)
+//                .asConfirm("免责条款", "本项目仅供学习、分享与交流，我们不保证内容的正确性，" + "禁止使用本项目进行商业化与违反法律法规的操作。下载试用后请 24 小时内删除，" + "因下载本站资源造成的损失，全部由使用者本人承担！根据 署名-非商业性使用-相同方式共享 (by-nc-sa) 许可协议规定，" + "只要他人在以原作品为基础创作的新作品上适用同一类型的许可协议，" + "并且在新作品发布的显著位置，注明原作者的姓名、来源及其采用的知识共享协议，与该作品在本网站的原发地址建立链接，" + "他人就可基于非商业目的对原作品重新编排、修改、节选或者本人的作品为基础进行创作和发布。" + "基于原作品创作的所有新作品都要适用同一类型的许可协议，因此适用该项协议， " + "对任何以他人原作为基础创作的作品自然同样都不得商业性用途。\n点击确定即代表您已同意本协议与声明！", "取消", "确定", new OnConfirmListener() {
+//                    @Override
+//                    public void onConfirm() {
+//                        isAgreen = true;
+//                        switchResult(result, view);
+//
+//                    }
+//                }, new OnCancelListener() {
+//                    @Override
+//                    public void onCancel() {
+//                        isAgreen = false;
+//                        ToastUtils.showShort("您已拒绝本协议与声明，无法继续使用");
+//                    }
+//                }, false);
+//        popupView.show();
     }
 
 
