@@ -1,5 +1,7 @@
 package com.mcz.douyin.ui.login;
 
+import static com.mcz.douyin.util.Constant.baseUrl;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private OkManager manager;
     private OkHttpClient clients;
     private ActivityLoginBinding binding;
-    private String loginAutoSystemUrl = "http://121.40.17.26:18080/api/biz/client/login";
+    private String loginAutoSystemUrl = baseUrl+"client/login";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

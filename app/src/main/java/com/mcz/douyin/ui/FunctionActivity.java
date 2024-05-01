@@ -9,6 +9,7 @@ import static com.mcz.douyin.script.TaskDemo.scriptGrowthRunning;
 import static com.mcz.douyin.script.TaskDemo.scriptGrowthStart;
 import static com.mcz.douyin.script.TaskDemo.scriptMessageRunning;
 import static com.mcz.douyin.script.TaskDemo.scriptMessageStart;
+import static com.mcz.douyin.util.Constant.baseUrl;
 
 
 import android.content.Intent;
@@ -34,6 +35,7 @@ import com.mcz.douyin.databinding.ActivityFunctionBinding;
 import com.mcz.douyin.script.TaskDemo;
 import com.mcz.douyin.ui.login.LoginActivity;
 import com.mcz.douyin.util.Constant;
+import com.mcz.douyin.util.DataUtils;
 import com.mcz.douyin.util.OkManager;
 
 import org.json.JSONObject;
@@ -45,8 +47,8 @@ import java.util.Map;
 public class FunctionActivity extends AppCompatActivity {
     private int delayTime = 60000;  //1分钟执行一次
     private static final String TAG = "MainActivity";
-    private String loginAutoSystemUrl = "http://121.40.17.26:18080/api/biz/client/deviceInfoClient";
-    private String onOffSystemUrl = "http://121.40.17.26:18080/api/biz/client/deviceInfoClientSwitch";
+    private String loginAutoSystemUrl = baseUrl+"client/deviceInfoClient";
+    private String onOffSystemUrl = baseUrl+"client/deviceInfoClientSwitch";
     ActivityFunctionBinding binding;
     Button runBtn;
 
@@ -172,6 +174,7 @@ public class FunctionActivity extends AppCompatActivity {
                     binding.tvAutoData.setText(jsonObject.toString());
                     printLogMsg("获取接口数据：" + jsonObject.toString());
                     if (bean.getData() != null) {
+                        DataUtils.getInstance().getDataDTOList().add(bean);
                         //开始执行脚本
                         new Thread(new Runnable() {
                             @Override
@@ -184,8 +187,11 @@ public class FunctionActivity extends AppCompatActivity {
                                     }
                                     if (!scriptGrowthRunning && !scriptMessageRunning) {
                                         TaskDemo.videoNum = 0;
-                                        TaskDemo demo = new TaskDemo();
-                                        demo.startAutoParenting(bean);
+                                        if (DataUtils.getInstance().getDataDTOList().size() > 0) {
+                                            TaskDemo demo = new TaskDemo();
+                                            demo.startAutoParenting(DataUtils.getInstance().getDataDTOList().get(0));
+                                        }
+
                                     }
 
                                 } else if (scriptGrowthStart) {
@@ -245,6 +251,9 @@ public class FunctionActivity extends AppCompatActivity {
         }
     };
 // 启动计时器
+
+
+
 
 
     @Override

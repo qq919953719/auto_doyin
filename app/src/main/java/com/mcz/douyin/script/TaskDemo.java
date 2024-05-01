@@ -2,30 +2,45 @@ package com.mcz.douyin.script;
 
 import static com.mcz.douyin.config.GlobalVariableHolder.*;
 import static com.mcz.douyin.node.AccUtils.*;
+import static com.mcz.douyin.util.Constant.baseUrl;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
+import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ApiUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ClipboardUtils;
+import com.blankj.utilcode.util.DeviceUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.mcz.douyin.bean.AutoDataBean;
 import com.mcz.douyin.bean.AutoFollowDataBean;
+import com.mcz.douyin.bean.OnOffBean;
 import com.mcz.douyin.node.AccUtils;
 import com.mcz.douyin.node.UiCollection;
 import com.mcz.douyin.node.UiSelector;
 import com.mcz.douyin.script.dyService.TaskItemDemo;
 import com.mcz.douyin.ui.FunctionActivity;
+import com.mcz.douyin.util.Constant;
+import com.mcz.douyin.util.DataUtils;
+import com.mcz.douyin.util.OkManager;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class TaskDemo extends UiSelector {
@@ -319,8 +334,9 @@ public class TaskDemo extends UiSelector {
                 printLogMsg("私信发送成功");
             }
             timeSleep(waitTwoSecond);
-
-
+            //从未完成队列里移除此条数据
+            updStatusByAccount(doyinBean.getAccount());
+            DataUtils.getInstance().getDataDTOList().remove(bean);
             printLogMsg("执行完当前私信脚本，即将返回到APP主页");
             for (int i = 0; i < 5; i++) {
                 printLogMsg("执行第" + i + "次返回");
@@ -346,8 +362,11 @@ public class TaskDemo extends UiSelector {
     //
 
 
-    //转发
-
+    /**
+     * 清除后台此条数据
+     */
+    private String onUpdStatusByAccountUrl = baseUrl + "client/updStatusByAccount";
+    private OkManager manager;
 
     public void jumpApp(String packageName) {
         PackageManager packageManager = context.getPackageManager();
@@ -355,5 +374,29 @@ public class TaskDemo extends UiSelector {
         ActivityUtils.getTopActivity().startActivity(it);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void updStatusByAccount(String account) {
+        if (manager == null) {
+            manager = OkManager.getInstance();
+        }
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("deviceID", DeviceUtils.getUniqueDeviceId());
+        map.put("token", SPUtils.getInstance().getString(Constant.TOKEN, ""));
+        map.put("account", account);
+        manager.sendComplexForm(onUpdStatusByAccountUrl, map, new OkManager.Fun4() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                Log.i("Tag", jsonObject.toString());
+                OnOffBean bean = JSON.parseObject(jsonObject.toString(), OnOffBean.class);
+                if (bean.getCode() == 200) {
+                    printLogMsg("账号" + account + ":此条账号消费成功");
+                } else {
+                    printLogMsg("账号" + account + ":消费失败");
+                }
+
+            }
+        });
+
+    }
 
 }
