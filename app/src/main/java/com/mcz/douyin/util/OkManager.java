@@ -84,6 +84,7 @@ public class OkManager {
             public void run() {
                 if (callBack != null) {
                     try {
+                        Log.i("请求结果",jsonValue);
                         callBack.onResponse(new JSONObject(jsonValue));
                     } catch (JSONException e) {
                     }

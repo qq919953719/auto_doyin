@@ -27,6 +27,7 @@ import com.blankj.utilcode.util.Utils;
 import com.mcz.douyin.bean.AutoDataBean;
 import com.mcz.douyin.bean.AutoFollowDataBean;
 import com.mcz.douyin.bean.OnOffBean;
+import com.mcz.douyin.bean.UseAccountBean;
 import com.mcz.douyin.node.AccUtils;
 import com.mcz.douyin.node.UiCollection;
 import com.mcz.douyin.node.UiSelector;
@@ -387,7 +388,7 @@ public class TaskDemo extends UiSelector {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 Log.i("Tag", jsonObject.toString());
-                OnOffBean bean = JSON.parseObject(jsonObject.toString(), OnOffBean.class);
+                UseAccountBean bean = JSON.parseObject(jsonObject.toString(), UseAccountBean.class);
                 if (bean.getCode() == 200) {
                     printLogMsg("账号" + account + ":此条账号消费成功");
                 } else {

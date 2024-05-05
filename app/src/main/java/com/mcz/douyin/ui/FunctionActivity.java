@@ -47,8 +47,8 @@ import java.util.Map;
 public class FunctionActivity extends AppCompatActivity {
     private int delayTime = 60000;  //1分钟执行一次
     private static final String TAG = "MainActivity";
-    private String loginAutoSystemUrl = baseUrl+"client/deviceInfoClient";
-    private String onOffSystemUrl = baseUrl+"client/deviceInfoClientSwitch";
+    private String loginAutoSystemUrl = baseUrl + "client/deviceInfoClient";
+    private String onOffSystemUrl = baseUrl + "client/deviceInfoClientSwitch";
     ActivityFunctionBinding binding;
     Button runBtn;
 
@@ -174,7 +174,10 @@ public class FunctionActivity extends AppCompatActivity {
                     binding.tvAutoData.setText(jsonObject.toString());
                     printLogMsg("获取接口数据：" + jsonObject.toString());
                     if (bean.getData() != null) {
-                        DataUtils.getInstance().getDataDTOList().add(bean);
+                        if (bean.getData().getTargetUserList().size() > 0) {
+                            DataUtils.getInstance().getDataDTOList().add(bean);
+
+                        }
                         //开始执行脚本
                         new Thread(new Runnable() {
                             @Override
@@ -251,9 +254,6 @@ public class FunctionActivity extends AppCompatActivity {
         }
     };
 // 启动计时器
-
-
-
 
 
     @Override
